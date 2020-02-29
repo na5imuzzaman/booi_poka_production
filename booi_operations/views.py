@@ -374,7 +374,7 @@ def filter_book(request):
     #     elif query == 'review-delete-request':
     #         results = Booi.objects.filter(deleteRequest=True)
 
-    paginator = Paginator(results, 6)
+    paginator = Paginator(results, 12)
     page_number = request.GET.get('page')
     results = paginator.get_page(page_number)
 
