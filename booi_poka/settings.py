@@ -100,10 +100,21 @@ WSGI_APPLICATION = 'booi_poka.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'booipoka_db',
+        'USER': 'dbadmin',
+        'PASSWORD': 'dbadmin@#$nasim',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -127,7 +138,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 EMAIL_USE_TLS = True
-SEND_GRID_API_KEY = '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'
+SEND_GRID_API_KEY = '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'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'nasimuzzaman'
 DEFAULT_FROM_EMAIL = 'kakatua.live <noreply@kakatua.io>'
