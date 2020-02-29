@@ -1,0 +1,75 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="container bg--gray">
+    <div class="row justify-content-around report-details">
+        {% if obj.report_by %}
+            <div class="col-md-7 col-12 ">
+                <p> রিপোর্ট নং {{ obj.id }}</p>
+                <p> স্ট্যাটাসঃ {{ obj.status }}</p>
+                <p> রিপোর্টারঃ <a href="{{ obj.report_by.get_absolute_url_profile }}">{{ obj.report_by }}</a></p>
+                <p> বইঃ <a href="{{ obj.book.get_absolute_url_book_details }}">{{ obj.book.booiName }}</a></p>
+                {% if user.is_staff %}
+                    <p> বইয়ের মালিকঃ <a
+                            href="{{ obj.book.booiOwner.owner.get_absolute_url_profile }}">{{ obj.book.booiOwner.owner.first_name }}</a>
+                    </p>
+                {% else %}
+                    <p>
+                        বইয়ের মালিকঃ {{ obj.book.booiOwner.owner.first_name }}
+                    </p>
+                {% endif %}
+                <p>বিষয়ঃ {{ obj.subject }}</p>
+                <p>বিস্তারিত বর্ণনাঃ {{ obj.message }}</p>
+            </div>
+            <div class="col-md-4 col-12 ">
+                {% if not obj.solution %}
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ rbookform|crispy }}
+                        <button class="btn btn-outline-info btn-sm" type="submit" name="reportsolution"
+                                value="{{ obj.id }}"> স্যলুশন সাবমিট
+                        </button>
+                    </form>
+                {% else %}
+                    সমাধানঃ
+                    {{ obj.solution }}
+                {% endif %}
+            </div>
+
+        {% else %}
+
+            <div class="col-md-7 col-12 ">
+                <p> রিপোর্ট নং {{ obj.id }}</p>
+                <p> স্ট্যাটাসঃ {{ obj.status }}</p>
+                <p> বইঃ <a href="{{ obj.book.get_absolute_url_book_details }}">{{ obj.book.booiName }}</a></p>
+                {% if user.is_staff %}
+                    <p> ধার নিয়েছেঃ <a
+                            href="{{ obj.report_to.get_absolute_url_profile }}">{{ obj.report_to.owner.first_name }}</a>
+                    </p>
+                {% else %}
+                    <p>
+                        বইয়ের মালিকঃ {{ obj.report_to.owner.first_name }}
+                    </p>
+                {% endif %}
+                <p>সাবজেক্টঃ {{ obj.subject }}</p>
+                <p>ম্যাসেজঃ {{ obj.message }}</p>
+            </div>
+            <div class="col-md-4 col-12 ">
+                {% if not obj.solution %}
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ rborrowerform|crispy }}
+                        <button class="btn btn-outline-info btn-sm" type="submit" name="reportbook"
+                                value="{{ obj.id }}"> স্যলুশন সাবমিট
+                        </button>
+                    </form>
+                {% else %}
+                    সমাধানঃ
+                    {{ obj.solution }}
+                {% endif %}
+            </div>
+
+        {% endif %}
+
+    </div>
+</div>

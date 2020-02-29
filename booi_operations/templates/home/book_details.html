@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="container ">
+        <div class="row justify-content-center mt-5 text-center">
+            <div class="col-12">
+                <img class="border border-secondary borderX" src="{{ book.image.url }}"
+                     alt="{{ book.booiName }}'s cover" height="350">
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4 mt-4">
+                <p class="titlefont bookSide" >{{ book.booiName }}</p>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4">
+                <p class="authorSide"> {{ book.booiAuthor }}</p>
+            </div>
+            <div class="col-12">
+                <p> available: {{ book.available }}</p>
+            </div>
+            <div class="col-12">
+                <p> brief: {{ book.brief }}</p>
+            </div>
+
+
+            <div class="col-12">
+                <div class="row justify-content-around">
+
+                    {#                borrower button start#}
+                    {% if request.user.username != book.booiOwner.owner.username %}
+                        {% if book.available %}
+                            {% if mine.count %}
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#viewTokenModal">  {# Done #}
+                                    view token
+                                </button>
+                                <form action="." method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary" name="action" value="newtoken">
+                                        {# Done #}
+                                        generate new token
+                                    </button>
+                                </form>
+
+                            {% else %}
+
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#requestModal">
+                                    Request for borrow
+                                </button>
+                                <button type="button" class="btn btn-primary" disabled>
+                                    generate new token
+                                </button>
+                            {% endif %}
+                        {% else %}
+                            <button type="button" class="btn btn-primary" disabled>
+                                Request for borrow
+                            </button>
+                        {% endif %}
+                        {#                borrower button end#}
+
+                        {#                       book owner button start#}
+                    {% else %}
+                        <div class="col-6">
+                            <a href="{{ book.get_absolute_url_book_edit }}" class="btn btn-primary">Edit Information</a>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete">
+                                Delete This Book
+                            </button>
+                            <div class="col-12">
+
+                            </div>
+                        </div>
+
+                    {% endif %}
+                    {#                       book owner button end#}
+                </div>
+
+                {#                Verify security key start by book owner#}
+                <div class="row justify-content-center mt-5 mb-5">
+                    {% if request.user.username == book.booiOwner.owner.username and book.available %}
+
+                        <form class="form-inline" method="post" enctype="multipart/form-data"> {# Post form #}
+                            {% csrf_token %}
+                            <div class="form-group mx-sm-3 mb-2">
+                                <label for="tokenVerify" class="sr-only">Security token</label>
+                                <input type="text" class="form-control" id="tokenVerify" name="token"
+                                       placeholder="Enter token" value="">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2" name="action" value="confirm">Confirm
+                                Token
+                            </button>
+                        </form>
+                    {% endif %}
+                    {% if not book.available %}
+                        <p>this book already borrowed by user.</p>
+                        </div>
+                    {% endif %}
+
+                {#                Verify security key end#}
+
+
+                {#            modal start#}
+
+                {#            borrower request model start#}
+                <div class="modal fade" id="requestModal" tabindex="-1" role="dialog"
+                     aria-labelledby="requestModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                {% if cnt > 1 %}
+                                    <h5 class="modal-title" id="requestModalLabel">Borrow request</h5>
+                                {% else %}
+                                    <h5 class="modal-title" id="requestModalLabel">Deny Request</h5>
+                                {% endif %}
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="text-align: left">
+                                {% if cnt > 1 %}
+                                    Once you click <strong>yes</strong>, you get a unique secret key which you give to
+                                    the
+                                    book owner
+                                    when you actually borrowed book from him.
+                                    <br>
+                                    don't share this key with others. you can generate <strong>new secret key</strong>
+                                    until you actually borrow this book
+                                {% else %}
+                                    Requirement didn't fulfill yet. You must add <strong>two books</strong> before
+                                    request for borrow.
+                                    Thank You!
+                                {% endif %}
+                            </div>
+                            <div class="modal-footer">
+                                {% if cnt > 1 %}
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                    <form action="." method="post"> {# Done #}
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-primary" name="action" value="request">
+                                            Yes
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Got it</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {#            borrower model end#}
+
+                {#            book owner modal start#}
+                <div class="modal fade" id="delete" tabindex="-1" role="dialog"
+                     aria-labelledby="deleteLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                {% if cnt > 1 %}
+                                    <h5 class="modal-title" id="deleteLabel">Delete Book</h5>
+                                {% else %}
+                                    <h5 class="modal-title" id="deleteLabel">Delete Failed</h5>
+                                {% endif %}
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="text-align: left">
+                                {% if book.available %}
+                                    Are you sure?
+                                {% else %}
+                                    Your book is borrowed by someone. We need these data to track your book. '
+                                    'After you get return your book you can delete it. Sorry for this inconvenience!
+                                {% endif %}
+                            </div>
+                            <div class="modal-footer">
+                                {% if book.available %}
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                    <form action="." method="post">  {# Post form #}
+                                        {% csrf_token %}
+                                        <button type="submit" name="action" value="delete" class="btn btn-primary">
+                                            Confirm Delete
+                                        </button>
+                                    </form>
+
+                                {% else %}
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Got it</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {#            book owner modal end#}
+
+
+                {#            view token start#}
+                <div class="modal fade" id="viewTokenModal" tabindex="-1" role="dialog"
+                     aria-labelledby="viewTokenModalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="viewTokenModalTitle">Security Token</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="font-size: 38px; font-weight: bold;">
+                                {{ mine.first.securityToken }}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                {#                                <button type="button" class="btn btn-primary">Save changes</button>#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {#                view token end#}
+                {#            modal end#}
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}

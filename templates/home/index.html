@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <!-- Main wrapper -->
+    <div class="wrapper" id="wrapper">
+        <!-- Header -->
+        {% include 'navxyz.html' %}
+        <!-- //Header -->
+
+        <!-- End Search Popup -->
+        <!-- Start Slider area -->
+        <div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+            <!-- Start Single Slide -->
+            <div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="slider__content">
+                                <div class="contentbox">
+                                    <h2>Borrow <span>your </span></h2>
+                                    <h2>favourite <span>Book </span></h2>
+                                    <h2>from <span>Here </span></h2>
+                                    <a class="shopbtn" href="#">borrow now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--        End Single Slide -->
+            <!-- Start Single Slide -->
+            <div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="slider__content">
+                                <div class="contentbox">
+                                    <h2>Borrow <span>your </span></h2>
+                                    <h2>favourite <span>Book </span></h2>
+                                    <h2>from <span>Here </span></h2>
+                                    <a class="shopbtn" href="#">borrow now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Single Slide -->
+        </div>
+        <!-- End Slider area -->
+        <!-- Start BEst Seller Area -->
+        <section class="wn__product__area brown--color pt--80  pb--30">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section__title text-center">
+                            <h2 class="title__be--2"> newly <span class="color--theme">added</span></h2>
+                            <p> নতুন যুক্ত সকল বই সূমহ এই সেকশনে দেখানো হইছে। এই সেকশনটি নতুন বই আসার সাথে সাথে আপডেট
+                                হয়।</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Start Single Tab Content -->
+                <div class="furniture--4 border--round arrows_style owl-carousel owl-theme row mt--50">
+                    <!-- Start Single Product -->
+                    {#                    single-product.html#}
+                    {% for newbook in newbooks %}
+
+                        <div class="product product__style--3">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                                <div class="product__thumb">
+                                    <a class="first__img" href="{% url 'book-details' slug=newbook.slug %}"><img
+                                            src="{{ newbook.image.url }}"
+                                            alt="product image"></a>
+                                    <a class="second__img animation1" href="{% url 'book-details' slug=newbook.slug %}"><img
+                                            src="{{ newbook.image.url }}" alt="product image"></a>
+                                    {#                                    <div class="hot__box">#}
+                                    {#                                        <span class="hot-label">HOT</span>#}
+                                    {#                                    </div>#}
+                                    {% if newbook in wishlist %}
+                                        <div class="hot__box__down">
+                                            <span class="hot-label"> উইশ লিস্টে যুক্ত করা আছে</span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="product__content content--center">
+                                    <h4><a href="{% url 'book-details' slug=newbook.slug %}">{{ newbook.booiName }}</a>
+                                    </h4>
+                                    <h4>{{ newbook.booiAuthor }}</h4>
+                                    <ul class="prize d-flex">
+                                        {% if newbook in cnt %}
+                                            <li>আমার বই</li>
+                                        {% else %}
+
+                                            <li>{% if newbook.available %} ধার নিতে পারবেন {% else %}  ধার
+                                                নিতে পারবেন না {% endif %}</li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <!-- Start Single Product -->
+
+                </div>
+                <!-- End Single Tab Content -->
+            </div>
+        </section>
+        <!-- Start BEst Seller Area -->
+
+        <!-- Start Best Seller Area -->
+        <section class="wn__bestseller__area bg--white pt--80  pb--30">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section__title text-center">
+                            <h2 class="title__be--2"> top <span class="color--theme">books</span></h2>
+                            <p> যে সকল বই সর্বোচ্চ বার ধার নেওয়া হইছে সে সকল বইকে র‍্যাংক অনুযায়ী এই সেকশনে
+                                দেখানো হইছে </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab__container mt--60">
+                    <!-- Start Single Tab Content -->
+                    <div class="row single__tab tab-pane fade show active" id="nav-all" role="tabpanel">
+                        <div class="product__indicator--4 arrows_style owl-carousel owl-theme">
+                            {% for topbook in topbooks %}
+                                <div class="single__product">
+                                    <!-- Start Single Product -->
+                                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                                        <div class="product product__style--3">
+                                            <div class="product__thumb">
+                                                <a class="first__img" href="{% url 'book-details' slug=topbook.slug %}"><img
+                                                        src="{{ topbook.image.url }}" alt="product image"></a>
+                                                <a class="second__img animation1"
+                                                   href="{% url 'book-details' slug=topbook.slug %}"><img
+                                                        src="{{ topbook.image.url }}" alt="product image"></a>
+                                                {#                                                <div class="hot__box">#}
+                                                {#                                                    <span class="hot-label">TOP BORROWED</span>#}
+                                                {#                                                </div>#}
+                                                {% if topbook in wishlist %}
+                                                    <div class="hot__box__down">
+                                                        <span class="hot-label"> উইশ লিস্টে যুক্ত করা আছে</span>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="product__content content--center content--center">
+                                                <h4>
+                                                    <a href="{% url 'book-details' slug=topbook.slug %}">{{ topbook.booiName }}</a>
+                                                </h4>
+                                                <h4>{{ topbook.booiAuthor }}</h4>
+                                                <ul class="prize d-flex">
+                                                    {% if topbook in cnt %}
+                                                        <li>আমার বই</li>
+
+                                                    {% else %}
+
+                                                        <li>{% if topbook.available %} ধার নিতে পারবেন {% else %}  ধার
+                                                            নিতে পারবেন না {% endif %}</li>
+                                                    {% endif %}
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- End Single Tab Content -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Area -->
+        {% include 'footer.html' %}
+        <!-- //Footer Area -->
+
+    </div>
+    <!-- //Main wrapper -->
+
+    {#    addd to wishlist#}
+    <div class="modal fade" id="requestModal" tabindex="-1" role="dialog"
+         aria-labelledby="requestModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {% if cnt.count > 1 %}
+                        <h5 class="modal-title" id="requestModalLabel">Borrow request</h5>
+                    {% else %}
+                        <h5 class="modal-title" id="requestModalLabel">Deny Request</h5>
+                    {% endif %}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="text-align: left">
+                    {#                    {% if book in wishlist %}#}
+                    {#                        Already add to your wish list. <a href="{% url 'wish-list' %}">View form herr</a>#}
+                    {% if cnt.count > 1 %}
+                        Once you click <strong>yes</strong>, This book <strong>added to your wishlist</strong> & you get
+                        a unique secret key which you give to
+                        the
+                        book owner
+                        when you actually borrowed book from him.
+                        <br>
+                        don't share this key with others. you can generate <strong>new secret key</strong>
+                        until you actually borrow this book.
+
+                    {% else %}
+                        Requirement didn't fulfill yet. You must add <strong>two books</strong> before
+                        request for borrow.
+                        Thank You!
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    {#                    {% if book in wishlist %}#}
+                    {#                        <button type="button" class="btn btn-primary" data-dismiss="modal">Got it</button>#}
+                    {% if cnt.count > 1 %}
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <form action="." method="post"> {# Done #}
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary" name="action" value="request">
+                                Yes
+                            </button>
+                        </form>
+                    {% else %}
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Got it</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="requesterrorModal" tabindex="-1" role="dialog"
+         aria-labelledby="requesterrorModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {% if cnt.count > 1 %}
+                        <h5 class="modal-title" id="requesterrorModalLabel">Borrow request</h5>
+                    {% else %}
+                        <h5 class="modal-title" id="requesterrorModalLabel">Deny Request</h5>
+                    {% endif %}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="text-align: left">
+                    Already add to your wish list. Go to <a class="font-weight-bold" href="{% url 'wish-list' %}">wishlist</a>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Got it</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a
+            href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+    <!-- Main wrapper -->
+    <div class="wrapper" id="wrapper">
+        <!-- Header -->
+        {% include 'navxyz.html' %}
+        <!-- //Header -->
+        <div class="ht__bradcaump__area bg-image--6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="bradcaump__inner text-center">
+                            <h2 class="bradcaump-title">Add book</h2>
+                            <nav class="bradcaump-content">
+                                <a class="breadcrumb_item" href="{% url 'home' %}">Home</a>
+                                <span class="brd-separetor">/</span>
+                                <span class="breadcrumb_item active">add book</span>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        {% if not user_info.varsityId or not user_info.phone or not user_info.currentCity %}
+            <div class="container">
+                <div class="alert alert-danger" role="alert">
+                    আপনার বইটি পাবলিশ করানোর জন্য অবশ্যই আপনাকে <a href="{{ user_info.get_absolute_url_profile_edit }}">
+                    ইডিট একাউন্টে</a>
+                    গিয়ে কমপক্ষে <strong title="Ex. 123-45-6789"> ভার্সিটির পরিচয় পত্র নাম্বার</strong>, <strong
+                        title="017..."> মোবাইল নাম্বার</strong> এবং <strong title="ex. YKSG Hall, DIU">বর্তমান
+                    ঠিকানা</strong> যুক্ত করতে হবে।
+                </div>
+            </div>
+        {% endif %}
+        <!-- End Bradcaump area -->
+        <!-- Start My Account Area -->
+        <section class="my_account_area pt--80 pb--55 bg--white">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-12">
+                        <div class="my__account__wrapper">
+                            <form method="post" enctype="multipart/form-data">
+                                <div class="account__form">
+                                    {% csrf_token %}
+                                    {{ form|crispy }}
+{#                                    {% crispy form %}#}
+                                    <div class="form__btn">
+                                        <button type="submit">Send to Admin for Review</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- End My Account Area -->
+        <!-- Footer Area -->
+        {% include 'footer.html' %}
+        <!-- //Footer Area -->
+
+    </div>
+    <!-- //Main wrapper -->
+{% endblock %}

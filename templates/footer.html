@@ -1,0 +1,51 @@
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'footer.css' %}">
+{% endblock %}
+
+<section id="help-me">
+    <div class="mt-5 pt-5 pb-5 footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-xs-12 about-company">
+                    <p>developed by</p>
+                    <h2>dotOnion</h2>
+                    <p class="pr-5 text-white-50">  ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটির  কতিপয় <br> ছাত্র দ্বারা
+                        পরিচালিত একটি অলাভজনক প্রতিষ্ঠান</p>
+                    <p class="mt-3">
+                        <a href="#"><i class="bi bi-facebook mr-2"></i></a>
+                        <a href="#"><i class="bi bi-google mr-2"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </p>
+
+                </div>
+                <div class="col-lg-3 col-xs-12 links">
+                    <h4 class="mt-lg-0 mt-sm-3 mb-2">লিংকসূমহ</h4>
+                    <ul class="m-0 p-0">
+                        <li>- <a href="{% url 'faq-view' %}">প্রতিনিয়ত জিজ্ঞাসিত প্রশ্ন</a></li>
+                        <li>- <a href="{% url 'our-story' %}">আমাদের গল্প</a></li>
+                        <li>- <a href="#">গোপনীয়তা নীতি</a></li>
+                        <li>- <a href="#">ব্যবহারের নিয়মাবলি</a></li>
+                        <li>- <a href="{% url 'contact-info' %}">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-xs-12 location">
+                    <h4 class="mt-lg-0 mt-sm-3 mb-2">ঠিকানা</h4>
+                    <p> ই105, ইউনুস খান স্কলারস গার্ডেন</p>
+                    <p> ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটি</p>
+                    <p> আশুলিয়া, সাভার, ঢাকা</p>
+                    <p class="mb-0 mt-2"><i class="fa fa-phone mr-3"></i>(+88) 01521-405012</p>
+                    <p><i class="fa fa-envelope-o mr-3"></i>nasimuzzaman15-1127@diu.edu.bd</p>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col copyright">
+                    <p class=""><small class="text-white-50">© 2020. All Rights Reserved.</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

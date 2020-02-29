@@ -1,0 +1,21 @@
+{% load static %}
+
+<h3 class="wedget__title"> বইয়ের ক্যাটাগরী</h3>
+<form id="search_side" action="{% url 'book-view' %}" method="get">
+    <ul>
+        <input type="text" name="filter" value="" aria-hidden="true"
+               hidden>
+        <li><a id="academic_side" href="#"> একাডেমিক</a></li>
+        <li><a id="biography_side" href="#"> বায়োগ্রাফি </a></li>
+        <li><a id="inspiration_side" href="#"> মোটিভেশনাল </a></li>
+        <li><a id="islamic_side" href="#"> ইসলামিক </a></li>
+        <li><a id="magazine_side" href="#"> ম্যাগাজিন</a></li>
+        <li><a id="mathematics_side" href="#"> ম্যাথম্যাটিকস</a></li>
+        <li><a id="novel_side" href="#"> উপন্যাস</a></li>
+        <li><a id="poem_side" href="#"> কবিতা</a></li>
+        <li><a id="programming_side" href="#"> প্রোগ্রামিং</a></li>
+        <li><a id="science_fiction_side" href="#"> সাইন্স ফিকশন</a></li>
+        <li><a href="#" id="foreign_side"> অন্য ভাষার বই</a></li>
+        <li><a href="#" id="translation_side"> অনুবাদ</a></li>
+    </ul>
+</form>

@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a
+            href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+    <!-- Main wrapper -->
+    <div class="wrapper" id="wrapper">
+
+        <!-- Header -->
+        {% include 'navxyz.html' %}
+        <!-- //Header -->
+
+        <!-- Start Bradcaump area -->
+        <div class="ht__bradcaump__area bg-image--6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="bradcaump__inner text-center">
+                            <h2 class="bradcaump-title">Report Details</h2>
+                            <nav class="bradcaump-content">
+                                <a class="breadcrumb_item" href="{% url 'home' %}">Home</a>
+                                <span class="brd-separetor">/</span>
+                                <span class="breadcrumb_item active">Report Details</span>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Bradcaump area -->
+
+        <section class="wn_contact_area bg--white pt--80 pb--80">
+
+
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#reportbook"
+                               role="tab"
+                               aria-controls="nav-home" aria-selected="true">Report to book owner</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#reportborrower"
+                               role="tab"
+                               aria-controls="nav-profile" aria-selected="false">Report to borrower</a>
+                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact"
+                               role="tab"
+                               aria-controls="nav-contact" aria-selected="false">Report self</a>
+                        </div>
+                    </nav>
+                    <div class="col col-md-10 mt--80">
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="reportbook" role="tabpanel"
+                                 aria-labelledby="nav-home-tab">
+                                <table class="table table-condensed" style="border-collapse:collapse;">
+                                    <thead class="thead-dark">
+                                    <tr class="text-center ">
+                                        <th scope="col">ইস্যুর তারিখ</th>
+                                        <th scope="col"> বইয়ের নাম</th>
+                                        <th scope="col">তদন্তকারী</th>
+                                        <th scope="col">সাবজেক্ট</th>
+                                        <th scope="col">স্ট্যাটাস</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+
+
+                                    {% for obj in user_report %}
+
+                                        <tr data-toggle="collapse" data-target="#demo{{ forloop.counter }}"
+                                            class=" accordion-toggle text-center">
+
+                                            <td>{{ obj.report_time }}</td>
+                                            <td>{{ obj.book.booiName|safe }}</td>
+                                            <td>{% if not obj.investigator is None %}
+                                                {{ obj.investigator }} {% endif %}</td>
+                                            <td>{{ obj.subject }}</td>
+                                            <td>{{ obj.status }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6" class="hiddenRow">
+                                                <div class="accordian-body collapse"
+                                                     id="demo{{ forloop.counter }}"> {% include 'report_view/report_details.html' %} </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+
+
+                                <ul class="wn__pagination mt-3" style="font-size: 20px;">
+                                    {% if user_report.has_previous %}
+                                        <li><a href="?page={{ user_report.previous_page_number }}">&laquo;</a>
+                                        </li>
+                                    {% else %}
+                                        <li><span>&laquo;</span></li>
+                                    {% endif %}
+                                    {% for i in paginator1.page_range %}
+                                        {% if user_report.number == i %}
+                                            <li><span>{{ i }} <span
+                                                    class="sr-only">(current)</span></span></li>
+                                        {% else %}
+                                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if user_report.has_next %}
+                                        <li>
+                                            <a href="?page={{ user_report.next_page_number }}">&raquo;</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="disabled"><span>&raquo;</span></li>
+                                    {% endif %}
+                                </ul>
+
+
+                            </div>
+                            <div class="tab-pane fade" id="reportborrower" role="tabpanel"
+                                 aria-labelledby="nav-profile-tab">
+                                <table class="table table-condensed" style="border-collapse:collapse;">
+                                    <thead class="thead-dark">
+                                    <tr class="text-center ">
+                                        <th scope="col">ইস্যুর তারিখ</th>
+                                        <th scope="col"> বইয়ের নাম</th>
+                                        <th scope="col">তদন্তকারী</th>
+                                        <th scope="col">সাবজেক্ট</th>
+                                        <th scope="col">স্ট্যাটাস</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+
+
+                                    {% for obj in owner_report %}
+
+                                        <tr data-toggle="collapse" data-target="#demo{{ forloop.counter }}x"
+                                            class=" accordion-toggle text-center">
+
+                                            <td>{{ obj.report_time }}</td>
+                                            <td>{{ obj.book.booiName|safe }}</td>
+                                            <td>{% if not obj.investigator is None %}
+                                                {{ obj.investigator }} {% endif %}</td>
+                                            <td>{{ obj.subject }}</td>
+                                            <td>{{ obj.status }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6" class="hiddenRow">
+                                                <div class="accordian-body collapse"
+                                                     id="demo{{ forloop.counter }}x"> {% include 'report_view/report_details.html' %} </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+
+                                <ul class="wn__pagination mt-3" style="font-size: 20px;">
+                                    {% if owner_report.has_previous %}
+                                        <li><a href="?page={{ owner_report.previous_page_number }}">&laquo;</a>
+                                        </li>
+                                    {% else %}
+                                        <li><span>&laquo;</span></li>
+                                    {% endif %}
+                                    {% for i in paginator2.page_range %}
+                                        {% if owner_report.number == i %}
+                                            <li><span>{{ i }} <span
+                                                    class="sr-only">(current)</span></span></li>
+                                        {% else %}
+                                            <li><a href="?pages={{ i }}">{{ i }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if owner_report.has_next %}
+                                        <li>
+                                            <a href="?page={{ owner_report.next_page_number }}">&raquo;</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="disabled"><span>&raquo;</span></li>
+                                    {% endif %}
+                                </ul>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {% include 'footer.html' %}
+    </div>
+
+
+
+
+
+{% endblock %}

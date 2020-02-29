@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a
+            href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+    <!-- Main wrapper -->
+    <div class="wrapper" id="wrapper">
+
+        <!-- Header -->
+        {% include 'navxyz.html' %}
+        <!-- //Header -->
+
+        <!-- Start Bradcaump area -->
+        <div class="ht__bradcaump__area bg-image--6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="bradcaump__inner text-center">
+                            <h2 class="bradcaump-title">All Notification</h2>
+                            <nav class="bradcaump-content">
+                                <a class="breadcrumb_item" href="{% url 'home' %}">Home</a>
+                                <span class="brd-separetor">/</span>
+                                <span class="breadcrumb_item active">All Notification</span>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Bradcaump area -->
+
+        <section class="wn_contact_area bg--white pt--80 pb--80">
+
+
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 col-md-8 col-sm-10">
+
+                        <!-- Start Notification -->
+                        <div style="font-weight: 700; font-size: 18px; margin-bottom: 50px; border-bottom: #0A246A 2px solid; text-align: center">নোটিফিকেশন</div>
+
+
+                        {% if notifications.count == 0 %}
+                            <span> কোন নোটিফিকেশন নেই</span>
+                        {% endif %}
+                        {% for notification in notificationss %}
+
+                                        {% if notification.noti_type == 'published_book' %}
+                                            <a href="{{ notification.book.get_absolute_url_book_details }}">
+
+
+                                                    <p class="notification-font"> আপনার
+                                                        <strong class="text-capitalize">{{ notification.book.booiName }}</strong>
+                                                        বইটি পাবলিশ করা হয়েছে ।</p>
+                                                    <sub>{{ notification.created_time }}</sub>
+
+                                            </a>
+                                        {% elif notification.noti_type == 'create_book' %}
+                                            <a href="{% url 'home' %}">
+                                                <div class="content ">
+
+                                                    <p>
+                                                        <strong class="text-capitalize">{{ request.user.first_name }}</strong>,
+                                                        Thank you for signing up in this site.</p>
+                                                    <sub>{{ notification.created_time }}</sub>
+                                                </div>
+                                            </a>
+
+                                        {% elif notification.noti_type == 'available_alert' %}
+                                            <a href="{{ notification.book.get_absolute_url_book_details }}">
+                                                <div class="content ">
+
+                                                    <p> আপনার উইশ লিস্টে থাকা
+                                                        <strong class="text-capitalize">{{ notification.book.booiName }}</strong>
+                                                        বইটি এখন এভিলএবল আছে। বইটি অন্য কেউ ধার নেওয়ার আগেই আপনি
+                                                        নিয়ে নিন।</p>
+                                                    <sub>{{ notification.created_time }}</sub>
+
+                                                    {#                                                    {{ notification }}#}
+                                                </div>
+                                            </a>
+                                        {% elif notification.noti_type == 'new book' %}
+                                            <a href="#">
+                                                <div class="content ">
+
+                                                    <p>
+                                                        আজ কিছু নতুন বই এড হয়েছে। <strong>"NEWLY ADDED"</strong>
+                                                        সেকশনটি চেক করুন </p>
+                                                    <sub>{{ notification.created_time }}</sub>
+
+                                                    {#                                                    {{ notification }}#}
+                                                </div>
+                                            </a>
+
+                                        {% elif notification.noti_type == 'text' %}
+                                            <a href="#">
+                                                <div class="content ">
+
+                                                    <p style="font-size: small">{{ notification.noti_body|safe }}</p>
+                                                    <sub>{{ notification.created_time }}</sub>
+
+                                                    {#                                                    {{ notification }}#}
+                                                </div>
+                                            </a>
+
+                                        {% endif %}
+                            <div style="border-top: 1px solid #a4a4a4; margin: 5px 0 5px 0;"></div>
+
+
+                        {% endfor %}
+                        <ul class="wn__pagination mt-3" style="font-size: 20px;">
+                            {% if notificationss.has_previous %}
+                                <li><a href="?page={{ notificationss.previous_page_number }}">&laquo;</a>
+                                </li>
+                            {% else %}
+                                <li><span>&laquo;</span></li>
+                            {% endif %}
+                            {% for i in paginator.page_range %}
+                                {% if notificationss.number == i %}
+                                    <li><span>{{ i }} <span
+                                            class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if notificationss.has_next %}
+                                <li>
+                                    <a href="?page={{ notificationss.next_page_number }}">&raquo;</a>
+                                </li>
+                            {% else %}
+                                <li class="disabled"><span>&raquo;</span></li>
+                            {% endif %}
+                        </ul>
+
+
+                    </div>
+                </div>
+        </section>
+
+        {% include 'footer.html' %}
+    </div>
+
+
+
+
+
+{% endblock %}

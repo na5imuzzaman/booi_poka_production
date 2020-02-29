@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+    {% block title %}
+        <title>BooiPoka</title>
+    {% endblock %}
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top ">
+    <a class="navbar-brand" style="font-family: 'Permanent Marker', cursive; " href="{% url 'home' %}">Booipoka</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto ml-5">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item ">
+                {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'profile' username=request.user.username %}">Profile</a>
+                {% else %}
+                    <a class="nav-link" href="{% url 'account_login' %}">Profile</a>
+                {% endif %}
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Other Options
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {#                    <a class="dropdown-item" href="{% url 'profile-edit' username=request.user.username %}">Update profile</a>#}
+
+                {% if user.is_authenticated %}
+                        <a class="dropdown-item" href="{% url 'add-book' %}">Add Book</a>
+                    {% else %}
+                        <a class="dropdown-item" href="{% url 'account_login' %}">Add Book</a>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                        <a class="dropdown-item" href="{% url 'profile-edit' username=request.user.username %}">Update profile</a>
+                    {% else %}
+                        <a class="dropdown-item" href="{% url 'account_login' %}">Update profile</a>
+                    {% endif %}
+                {% if user.is_authenticated %}
+                    <a class="dropdown-item" href="{% url 'account_set_password' %}">Reset Password</a>
+                {% else %}
+                    <a class="dropdown-item disabled" >Reset Password</a>
+                {% endif %}
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item {% if not user.is_authenticated %} disabled {% endif %}" href="{% url 'account_logout' %}">logout</a>
+                </div>
+            </li>
+            {% if not user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'account_login' %}">Login</a>
+            </li>
+        {% endif %}
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+{% block content %}
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a
+            href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+    <!-- Main wrapper -->
+    <div class="wrapper" id="wrapper">
+
+        <!-- Header -->
+        {% include 'navxyz.html' %}
+        <!-- //Header -->
+        <div class="ht__bradcaump__area bg-image--6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="bradcaump__inner text-center">
+                            <h2 class="bradcaump-title">Filtered Book</h2>
+                            <nav class="bradcaump-content">
+                                <a class="breadcrumb_item" href="{% url 'home' %}">Home</a>
+                                <span class="brd-separetor">/</span>
+                                <span class="breadcrumb_item active">Filtered Book</span>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Bradcaump area -->
+        <!-- Start Shop Page -->
+        <div class="page-shop-sidebar left--sidebar bg--white section-padding--lg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-12 order-2 order-lg-1 md-mt-40 sm-mt-40">
+                        <div class="shop__sidebar">
+                            <aside class="wedget__categories poroduct--cat">
+                                {% include 'category.html' %}
+                            </aside>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-12 order-1 order-lg-2">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="shop__list__wrapper d-flex flex-wrap flex-md-nowrap justify-content-center">
+                                    <div>Showing result of <p class="font-weight-bold "> {{ query }}</p></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab__container">
+                            <div class="shop-grid tab-pane fade show active" id="nav-grid" role="tabpanel">
+                                <div class="row">
+                                    <!-- Start Single Product -->
+                                    {% for book in results %}
+                                        <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12 mt-4">
+                                            <div class="product__thumb">
+                                                <a class="first__img"
+                                                   href="{{ book.get_absolute_url_book_details }}"><img
+                                                        src="{{ book.image.url }}" alt="book image"></a>
+                                                {% if book in wishlist %}
+                                                    <div class="hot__box__down">
+                                                        <span class="hot-label"> উইশ লিস্টে যুক্ত করা আছে</span>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="product__content content--center">
+                                                <div class="text-capitalize">
+
+                                                    <h4>
+                                                        <a href="{{ book.get_absolute_url_book_details }}">{{ book.booiName }}</a>
+                                                    </h4>
+
+                                                </div>
+                                                <p style="">{{ book.booiAuthor }}</p>
+                                                <ul class="prize d-flex text-center">
+                                                    {% if book.acceptByAdmin %}
+                                                        {% if book in cnt %}
+                                                            <li> আমার বই (
+                                                                {% if book.available %}
+                                                                    ফ্রি
+                                                                {% else %}
+                                                                    ধার
+                                                                {% endif %}
+                                                                )
+                                                            </li>
+                                                        {% elif book.deleteRequest %}
+                                                            <li>ডিএক্টিভেট</li>
+                                                        {% else %}
+                                                            <li>{% if book.available %} ধার নিতে পারবেন {% else %}  ধার
+                                                                নিতে পারবেন না {% endif %}</li>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <li> এখনো একসেপ্ট হয়নি</li>
+
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    <!-- End Single Product -->
+                                </div>
+
+                                <ul class="wn__pagination mt-3" style="font-size: 20px;">
+                                    {% if results.has_previous %}
+                                        <li><a href="?filter={{ query }}&page={{ results.previous_page_number }}">&laquo;</a>
+                                        </li>
+                                    {% else %}
+                                        <li><span>&laquo;</span></li>
+                                    {% endif %}
+                                    {% for i in paginator.page_range %}
+                                        {% if results.number == i %}
+                                            <li><span>{{ i }} <span
+                                                    class="sr-only">(current)</span></span></li>
+                                        {% else %}
+                                            <li><a href="?filter={{ query }}&page={{ i }}">{{ i }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if results.has_next %}
+                                        <li>
+                                            <a href="?filter={{ query }}&page={{ results.next_page_number }}">&raquo;</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="disabled"><span>&raquo;</span></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Shop Page -->
+        <!-- Footer Area -->
+        {% include 'footer.html' %}
+        <!-- //Footer Area -->
+    </div>
+    <!-- //Main wrapper -->
+{% endblock %}

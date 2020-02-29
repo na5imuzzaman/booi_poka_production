@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% include 'navxyz.html' %}
+    {#    <h1>hi hello</h1>#}
+    {#    <img src="{{ profile.owner.socialaccount_set.all.0.get_avatar_url }}" alt="nobody" />#}
+    {#    <p>hi {{ user.socialaccount_set.all.0.get_profile_url }}</p>#}
+    {##}
+    {#    {% if user %}#}
+    {#    <h1>Welcome, {{user.first_name}}</h1>#}
+    {#    <p>Following is the Extra information that facebook has provided to allauth:</p>#}
+    {#    {% for account in user.socialaccount_set.all %}#}
+    {#        <h2 style="text-transform:capitalize;">{{ account.provider }} account data</h2>#}
+    {#        <p><img width="50" height="50" src="{{ account.get_avatar_url }}" /></p>#}
+    {#        <p>UID: <a href="{{account.extra_data.link }}">{{ account.uid }}</a></p>#}
+    {#        <p>Username: {{ account.extra_data.username }}</p>#}
+    {#        <p>First Name: {{ account.extra_data.first_name }}</p>#}
+    {#        <p>Last Name: {{ account.extra_data.gender }}</p>#}
+    {#        <p>Profile Link: <a href="{{ account.extra_data.link }}">{{ account.extra_data.link }}</a></p>#}
+    {#    {% endfor %}#}
+    {#    {% endif %}#}
+    {#    {{ user }}#}
+
+    <div class="container-fluid">
+        <div class="row justify-content-center"
+             {#  style="background-image: url('https://images.unsplash.com/photo-1565932887479-b18108f07ffd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80')"#}
+{#            style="background-image: url('https://images.unsplash.com/photo-1515485315907-72cf613bb1de?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80')"#}
+                style="background-image: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1453&q=80'); opacity: 0.6;"
+        >
+            <div class="mt-5">
+                <img class="rounded-circle img-fluid border border-white "
+                     src="{{ profile.owner.socialaccount_set.all.0.get_avatar_url }}" alt="nobody"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-10">
+                <p class="titlefont" style="text-transform: none">Balance: {% if profile.balance is None %} 0.00
+                    tk {% else %} {{ profile.balance }} tk {% endif %}</p>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6 col-sm-10">
+                <p class="titlefont">Bio</p>
+                <div class="row ml-3">
+                    <p>{{ profile.bio }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <p class="titlefont">General Info</p>
+                <div class="row ml-2">
+                    <div class="col-7">
+                        <p>name: {{ profile.owner.first_name }} {{ profile.owner.last_name }}</p>
+                    </div>
+                    <div class="col-5">
+                        <p>Gender: {{ profile.owner.socialaccount_set.all.0.extra_data.gender }}</p>
+
+                    </div>
+                    <div class="col-7">
+                        <p style="text-transform: none">Username: {{ profile.owner.username }}</p>
+                    </div>
+                    <div class="col-5">
+                        <p>contact: {{ profile.phone }}</p>
+                    </div>
+
+                    <div class="col-7">
+                        <p>Date Of Birth: {{ profile.dateOfBirth }}</p>
+                    </div>
+                    <div class="col-5">
+                        <p>Blood Group: {{ profile.bg }}</p>
+                    </div>
+                    <div class="col-12">
+                        <p style="text-transform: none">Email: {{ profile.owner.email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <p class="titlefont">Education</p>
+                <div class="row ml-2">
+                    <div class="col-7">
+                        <p>School: {{ profile.school }}</p>
+                    </div>
+                    <div class="col-4">
+                        <p>S.S.C.: {{ profile.schoolPassingYear }}</p>
+                    </div>
+
+                    <div class="col-7">
+                        <p>College: {{ profile.college }}</p>
+                    </div>
+                    <div class="col-4">
+                        <p>H.S.C.: {{ profile.collegePassingYear }}</p>
+                    </div>
+
+                    <div class="col-12">
+                        <p>University:</p>
+                        <div class="row ml-5">
+                            <div class="col-12">
+                                <p>ID: {{ profile.varsityId }}</p>
+                            </div>
+                            <div class="col-12">
+                                <p>Join: {{ profile.joiningSemester }} {{ profile.joiningYear }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <p class="titlefont">
+                    Address
+                </p>
+                <div class="row ml-2">
+                    <div class="col-10">
+                        <p>Current City: {{ profile.currentCity }}</p>
+                    </div>
+                    <div class="col-10">
+                        <p>Home Town: {{ profile.homeTown }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <p class="titlefont">
+                    added book
+                </p>
+                <div class="row ml-2">
+                    {% for book in books %}
+                        <div class="col-md-3 col-sm-4 mr-5">
+                            <div class="card border-warning shadow" style="width: 18rem;">
+                                <img class="card-img-top" src="{{ book.image.url }}" alt="Card image cap" height="350">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ book.booiName }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ book.booiAuthor }}</h6>
+{#                                    <p class="card-text">Some quick example text to build on the card title and make up#}
+{#                                        the bulk of the card's content.</p>#}
+                                </div>
+                                <div class="card-body">
+                                    <a href="{{ book.get_absolute_url_book_details }}" class="card-link">Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <p class="titlefont">
+                    borrowed book
+                </p>
+                <div class="row ml-2">
+                    {% for book in borrowed %}
+                        <div class="col-md-3 col-sm-4 mr-5">
+                            <div class="card" style="width: 18rem;">
+                                <img class="card-img-top" src="{{ book.image.url }}" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up
+                                        the bulk of the card's content.</p>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Cras justo odio</li>
+                                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                                    <li class="list-group-item">Vestibulum at eros</li>
+                                </ul>
+                                <div class="card-body">
+                                    <a href="#" class="card-link">Card link</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <p class="titlefont">
+                    liked book
+                </p>
+                <div class="row ml-2">
+                    <div class="col-12">
+                        <p>
+                            coming soon...
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="padding-bottom: 250px;"></div>
+{% endblock %}

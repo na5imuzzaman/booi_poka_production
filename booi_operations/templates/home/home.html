@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            {% for obj in page_obj %}
+                <div class="col-6 col-md-4 col-lg-3 d-flex align-items-stretch">
+
+                    <div class="card bg-light shadow mb-5 text-center mt-4 ">
+                        <img class="card-img-top trans" src="{{ obj.image.url }}" alt="{{obj.booiName}}'s cover" height="300" >
+                        <div class="card-body">
+                            <p class="card-title titlefont">{{ obj.booiName }}</p>
+                            <p class="card-text " style="font-weight: 400">{{ obj.booiAuthor }}</p>
+                            <p class="card-text" >{% if obj.available %} Available for borrow {% else %} Not available for borrow {% endif %}.</p>
+                            <form method="get">
+                                {% csrf_token %}
+                                <a class="btn btn-warning" href="{{ obj.get_absolute_url_book_details }}">Details</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+
+            {% if page_obj.has_previous %}
+                <li class="page-item ">
+                    <a class="page-link" href="?page=1">&laquo; first</a>
+                </li>
+                <li class="page-item ">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">previous</a>
+                </li>
+            {% endif %}
+
+
+            <li class="page-item">
+                <p class="page-link-modify">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+            </li>
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">next</a>
+                </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+    </div>
+{% endblock %}

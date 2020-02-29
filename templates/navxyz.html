@@ -1,0 +1,344 @@
+{% load static %}
+
+<header id="wn__header" class="header__area header__absolute sticky__header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-6 col-lg-2">
+                <div class="logo">
+                    <a href="{% url 'home' %}">
+                        <img src="{% static 'images/logo/logo.png' %}" alt="logo images">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-8 d-none d-lg-block">
+                <nav class="mainmenu__nav">
+                    <ul class="meninmenu d-flex justify-content-start">
+                        <li class="drop with--one--item"><a href="{% url 'home' %}">Home</a></li>
+
+                        <li class="drop"><a disabled>Books</a>
+                            <div class="megamenu mega03">
+                                <form id="search" action="{% url 'book-view' %}" method="get">
+                                    <ul class="item item01">
+                                        <li class="title">অপশন</li>
+
+                                        <input id="all-book" type="text" name="filter" value="" aria-hidden="true"
+                                               hidden>
+                                        <li><a href="#" id="all_book"> সকল বই</a></li>
+                                        <li><a href="#" id="my_books"> আমার বই</a></li>
+                                        <li><a href="#" id="pending-books"> পেন্ডিং বই</a></li>
+                                        <li><a href="#" id="deactive-books"> ডিএক্টিভ বই</a></li>
+                                        <li><a href="{% url 'add-book' %}"> নতুন বই যুক্ত করুন</a></li>
+                                    </ul>
+                                </form>
+
+                                <form id="search" action="{% url 'book-view' %}" method="get">
+                                    <ul class="item item02">
+                                        <li class="title">ক্যাটাগরী</li>
+                                        <input type="text" name="filter" value="" aria-hidden="true"
+                                               hidden>
+                                        <li><a href="#" id="academic">একাডেমিক</a></li>
+                                        <li><a href="#" id="biography">বায়োগ্রাফি </a></li>
+                                        <li><a href="#" id="inspiration">মোটিভেশনাল </a></li>
+                                        <li><a href="#" id="islamic">ধর্মীয় </a></li>
+                                        <li><a href="#" id="magazine">ম্যাগাজিন</a></li>
+                                    </ul>
+                                </form>
+
+                                <form id="search" action="{% url 'book-view' %}" method="get">
+                                    <ul class="item item03">
+                                        <li class="title">ক্যাটাগরী</li>
+                                        <input type="text" name="filter" value="" aria-hidden="true"
+                                               hidden>
+                                        <li><a href="#" id="mathematics">ম্যাথম্যাটিকস</a></li>
+                                        <li><a href="#" id="novel">উপন্যাস</a></li>
+                                        <li><a href="#" id="poem">কবিতা</a></li>
+                                        <li><a href="#" id="programming">প্রোগ্রামিং</a></li>
+                                        <li><a href="#" id="science_fiction">সাইন্স ফিকশন</a></li>
+                                    </ul>
+                                </form>
+
+                                <form id="search" action="{% url 'book-view' %}" method="get">
+                                    <ul class="item item04">
+                                        <li class="title">ক্যাটাগরী</li>
+                                        <input type="text" name="filter" value="" aria-hidden="true"
+                                               hidden>
+                                        <li><a href="#" id="foreign"> অন্য ভাষার বই</a></li>
+                                        <li><a href="#" id="translation"> অনুবাদ</a></li>
+                                        {#                                        <li><a href="#" id="poem">কবিতা</a></li>#}
+                                        {#                                        <li><a href="#" id="programming">প্রোগ্রামিং</a></li>#}
+                                        {#                                        <li><a href="#" id="science_fiction">সাইন্স ফিকশন</a></li>#}
+                                    </ul>
+                                </form>
+                            </div>
+                        </li>
+                        <li><a href="contact.html">how it works</a></li>
+                    <li><a href="#help-me">Need Help?</a></li>
+
+                        {% if request.user.is_staff %}
+
+
+                            <li class="drop"><a href="#">Admin</a>
+                                <div class="megamenu dropdown">
+                                    <form id="admin-panel" action="{% url 'book-view' %}" method="get">
+                                        {#                                        {% csrf_token %}#}
+
+                                        <input type="text" name="filter" value="" hidden aria-hidden="true">
+
+                                        <ul class="item item01">
+                                            <li><a href="{% url 'add-faq' %}">Add FAQ</a></li>
+                                            <li><a href="{% url 'push-notification' %}">Push Notification</a></li>
+                                            <li><a id="review-pending-books" href="#">Review pending books</a></li>
+                                            <li><a id="review-delete-request" href="#">Review Delete request</a></li>
+                                            <li><a href="{% url 'report-details' %}">Review reports</a></li>
+                                        </ul>
+                                    </form>
+                                </div>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-6 col-lg-2">
+                <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
+                    <li class="shop_search"><a class="search__active" href="#"></a></li>
+
+                    <li class="notification"><a class="cartbox_active cactivated" href="#">
+{#                        {% if noti_cnt > 0 %}#}
+{#                            <span class="product_qun">{{ noti_cnt }}</span></a>#}
+{#                        {% endif %}#}
+                    <span class="product_qun">{{ noti_cnt }}</span></a>
+
+                        <!-- Start Notification -->
+                        <div class="block-minicart minicart__active  activated">
+                            <div class="minicart-content-wrapper">
+                                <div style="font-weight: 700; font-size: 18px; margin-top: -20px;">নোটিফিকেশন</div>
+                                <div class="micart__close closed "></div>
+
+                                {% if notifications.count == 0 %}
+                                    <span style="text-transform: capitalize"> কোন নোটিফিকেশন নেই</span>
+                                {% endif %}
+                                {% for notification in notifications %}
+                                    <div class="single__items mt-2">
+                                        <div class="miniproduct">
+                                            <div class="item01 d-flex">
+
+                                                {% if notification.noti_type == 'published_book' %}
+
+                                                    <a href="{{ notification.book.get_absolute_url_book_details }}">
+                                                        <div class="content ">
+
+                                                            <p class="notification-font"> আপনার
+                                                                <strong class="text-capitalize">{{ notification.book.booiName }}</strong>
+                                                                বইটি পাবলিশ করা হয়েছে ।</p>
+                                                            <sub>{{ notification.created_time }}</sub>
+
+                                                            {#                                                    {{ notification }}#}
+                                                        </div>
+                                                    </a>
+                                                {% elif notification.noti_type == 'create_book' %}
+                                                    <a href="{% url 'home' %}">
+                                                        <div class="content ">
+
+                                                            <p>
+                                                                <strong class="text-capitalize">{{ request.user.first_name }}</strong>,
+                                                                Thank you for signing up in this site.</p>
+                                                            <sub>{{ notification.created_time }}</sub>
+
+                                                            {#                                                    {{ notification }}#}
+                                                        </div>
+                                                    </a>
+
+                                                {% elif notification.noti_type == 'available_alert' %}
+                                                    <a href="{{ notification.book.get_absolute_url_book_details }}">
+                                                        <div class="content ">
+
+                                                            <p> আপনার উইশ লিস্টে থাকা
+                                                                <strong class="text-capitalize">{{ notification.book.booiName }}</strong>
+                                                                বইটি এখন এভিলএবল আছে। বইটি অন্য কেউ ধার নেওয়ার আগেই আপনি
+                                                                নিয়ে নিন।</p>
+                                                            <sub>{{ notification.created_time }}</sub>
+
+                                                            {#                                                    {{ notification }}#}
+                                                        </div>
+                                                    </a>
+                                                {% elif notification.noti_type == 'new book' %}
+                                                    <a href="#">
+                                                        <div class="content ">
+
+                                                            <p>
+                                                                আজ কিছু নতুন বই এড হয়েছে। <strong>"NEWLY ADDED"</strong>
+                                                                সেকশনটি চেক করুন </p>
+                                                            <sub>{{ notification.created_time }}</sub>
+
+                                                            {#                                                    {{ notification }}#}
+                                                        </div>
+                                                    </a>
+
+                                                {% elif notification.noti_type == 'text' %}
+                                                    <a href="#">
+                                                        <div class="content ">
+
+                                                            <p style="font-size: small">{{ notification.noti_body|safe }}</p>
+                                                            <sub>{{ notification.created_time }}</sub>
+
+                                                            {#                                                    {{ notification }}#}
+                                                        </div>
+                                                    </a>
+
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+                                <form id="clear_notification_form" action="{% url 'all-notification' %}" method="get">
+                                    {% csrf_token %}
+                                    <a id="all-notification" href="#"><sub>see all</sub></a>
+                                </form>
+                            </div>
+                        </div>
+
+                    </li>
+
+
+                    <li class="wishlist"><a href="{% url 'wish-list' %}"></a></li>
+
+                    <li class="shopcart"><a class="cartbox_active ccactivate" href="#">
+                            <span class="product_qun">{{ carts.count }}</span></a>
+
+                        <!-- Start Shopping Cart -->
+                        <div class="block-minicart ccactivated">
+                            <div class="minicart-content-wrapper">
+                                <div class="micart__close closedd">
+                                    {#                                    <span>close</span>#}
+                                </div>
+                                {#                                <p class="mb-2">Borrowed lists</p>#}
+                                <div style="font-weight: 700; font-size: 18px; margin-top: -20px; border-bottom: #aaaaaa 2px solid; margin-bottom: 10px;">
+                                    ধারকৃত বই
+                                </div>
+                                {% for cart in carts %}
+                                    <div class="single__items">
+                                        <div class="miniproduct">
+                                            <div class="item01 d-flex">
+                                                <div class="thumb">
+                                                    <a href="{{ cart.thisBooi.get_absolute_url_book_details }}"><img
+                                                            src="{{ cart.thisBooi.image.url }}"
+                                                            alt="product images" height="80px;"></a>
+                                                </div>
+                                                <div class="content">
+                                                    <h5>
+                                                        <a href="{{ cart.thisBooi.get_absolute_url_book_details }}">{{ cart.thisBooi.booiName }}</a>
+                                                    </h5>
+                                                    <span class="prize">{{ cart.thisBooi.booiAuthor }}</span>
+                                                    <div class="product_prize d-flex flex-column">
+                                                        <span class="qun"></span>
+                                                        <p>ধার: {{ cart.borrowBookTime }}</p>
+                                                        <p> ফেরত: {{ cart.returnWithin }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+
+                                {% if carts.count == 0 %}
+                                    <span style="text-transform: capitalize"> আপনি কোন বই ধার নেন নি</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- End Shopping Cart -->
+                    </li>
+                    <li class="setting__bar__icon"><a class="setting__active" href="#"></a>
+                        <div class="searchbar__content setting__block">
+                            <div class="content-inner">
+
+                                <div class="switcher-currency">
+
+                                    <strong class="label switcher-label">
+                                        Login as <span>{{ user.username }}</span>
+                                    </strong>
+                                    <div class="switcher-options">
+                                        <div class="switcher-currency-trigger">
+                                            <div class="setting__menu">
+                                                {#                                                        <span><a href="#">Compare Product</a></span>#}
+                                                {% if user.is_authenticated %}
+                                                    <span><a href="{% url 'profile' username=user.username %}"> আমার একাউন্ট</a></span>
+                                                    <span><a href="{% url 'profile-edit' username=user.username %}"> ইডিট একাউন্ট</a></span>
+                                                    {#                                                    <span><a href="{%  %}">My Wishlist</a></span>#}
+                                                    <span><a
+                                                            href="{% url 'account_set_password' %}">চেঞ্জ পাসওয়ার্ড </a></span>
+                                                    <span><a href="{% url 'account_logout' %}"> লগ আউট</a></span>
+                                                {% else %}
+                                                    <span><a href="{% url 'account_login' %}"> সাইন ইন</a></span>
+                                                {% endif %}
+                                                {#                                                        <span><a href="#">My Wishlist</a></span>#}
+                                                {#                                                        <span><a href="#">Sign In</a></span>#}
+                                                {#                                                        <span><a href="#">Create An Account</a></span>#}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Start Mobile Menu -->
+        <div class="row d-none">
+            <div class="col-lg-12 d-none">
+                <nav class="mobilemenu__nav">
+                    <ul class="meninmenu">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="#" disabled>Books</a>
+                            {#                            <ul>#}
+                            {#                                <li><a href="{% %}">All Book</a></li>#}
+                            {#                                {% if user.is_authenticated %}#}
+                            {#                                    <li><a href="#">My Book</a></li>#}
+                            {#                                    <li><a href="#">Borrowed book</a></li>#}
+                            {#                                    <li><a href="#">Borrowed history</a></li>#}
+                            {#                                {% endif %}#}
+                            {#                            </ul>#}
+
+                            <form id="searchphn" action="{% url 'book-view' %}" method="get">
+                                <ul>
+                                    <input id="all-book" type="text" name="filter" value="" aria-hidden="true"
+                                           hidden>
+                                    <li><a id="all_book_phn">All Book</a></li>
+                                    <li><a id="my_books_phn">My Books</a></li>
+                                    <li><a id="borrowed_by_me_phn">Borrow by Me</a></li>
+                                    <li><a href="{% url 'add-book' %}">Add Book</a></li>
+                                </ul>
+                            </form>
+                        </li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- End Mobile Menu -->
+        <div class="mobile-menu d-block d-lg-none">
+        </div>
+        <!-- Mobile Menu -->
+    </div>
+
+    <div class="brown--color box-search-content search_active block-bg close__top">
+        <form id="search_mini_form" class="minisearch" action="{% url 'book-view' %}" method="get">
+            <div class="field__search">
+                <input name="search" value="" type="text" placeholder="Search book here...">
+                <div class="action">
+                    <a id="search_btn"> <i class="zmdi zmdi-search"></i></a>
+                </div>
+            </div>
+        </form>
+        <div class="close__wrap">
+            <span>close</span>
+        </div>
+    </div>
+</header>

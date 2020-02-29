@@ -1,0 +1,687 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+    <!-- Main wrapper -->
+    <div class="wrapper" id="wrapper">
+
+        <!-- Header -->
+        {% include 'navxyz.html' %}
+        <!-- //Header -->
+        <!-- Start Search Popup -->
+        {#		<div class="box-search-content search_active block-bg close__top">#}
+        {#			<form id="search_mini_form" class="minisearch" action="#">#}
+        {#				<div class="field__search">#}
+        {#					<input type="text" placeholder="Search entire store here...">#}
+        {#					<div class="action">#}
+        {#						<a href="#"><i class="zmdi zmdi-search"></i></a>#}
+        {#					</div>#}
+        {#				</div>#}
+        {#			</form>#}
+        {#			<div class="close__wrap">#}
+        {#				<span>close</span>#}
+        {#			</div>#}
+        {#		</div>#}
+        <!-- End Search Popup -->
+        <!-- Start Bradcaump area -->
+        <div class="ht__bradcaump__area bg-image--4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="bradcaump__inner text-center">
+                            <h2 class="bradcaump-title">Book Details</h2>
+                            <nav class="bradcaump-content">
+                                <a class="breadcrumb_item" href="{% url 'home' %}">Home</a>
+                                <span class="brd-separetor">/</span>
+                                <span class="breadcrumb_item active">Book Details</span>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Bradcaump area -->
+        <!-- Start main Content -->
+        <div class="maincontent bg--white pt--80 pb--55">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 col-12">
+                        <div class="wn__single__product">
+                            <div class="row">
+                                <div class="col-lg-6 col-12">
+                                    <div class="wn__fotorama__wrapper">
+                                        <div class="fotorama wn__fotorama__action" data-nav="thumbs">
+                                            <a href="{{ book.image.url }}"><img src="{{ book.image.url }}" alt=""></a>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="mt-3 availableornot">
+                                        {% if book.available %}
+                                            <p class="ml-3 "> ধার নিতে পারবেন</p>
+                                        {% else %}
+                                            <p class="ml-3 "> এখন ধার নিতে পারবেন না</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-12">
+                                    <div class="product__info__main">
+                                        <h1 class="text-capitalize">{{ book.booiName }}</h1>
+
+                                        <div class="price-box ">
+                                            <span class="text-capitalize">{{ book.booiAuthor }}</span>
+                                        </div>
+                                        <div class="product__overview">
+                                            <p>{{ book.brief|safe|truncatewords:"45" }}</p>
+
+                                        </div>
+
+                                        {% if user.is_authenticated and not user.is_staff %}
+                                            {% if book.booiOwner.owner.username != user.username and book.acceptByAdmin and not book.deleteRequest %}
+                                                <div class="box-tocart d-flex">
+                                                    <div class="addtocart__actions">
+
+                                                        {% if wishlisted.count > 0 %}
+                                                            {% if wishlisted.first.borrowed == True %}
+                                                                <button class="tocart" title="Wishlisted">
+                                                                    উইশলিষ্টে যুক্ত আছে
+                                                                </button>
+                                                            {% else %}
+                                                                <form action="." method="post">
+                                                                    {% csrf_token %}
+                                                                    <button class="tocart" type="submit" name="action"
+                                                                            value="removewishlist" title="Wishlisted">
+                                                                        উইশলিস্ট থেকে বাদ দিন
+                                                                    </button>
+                                                                </form>
+                                                            {% endif %}
+
+                                                        {% else %}
+                                                            <button class="tocart" data-toggle="modal"
+                                                                    data-target="#requestModal">
+                                                                উইশলিস্টে যুক্ত করুন
+                                                            </button>
+                                                        {% endif %}
+                                                    </div>
+                                                    {% if wishlisted.count == 1 %}  {# Icon Button #}
+                                                        <div class="product-addto-links clearfix">
+                                                            {% if book not in cartbooks %}
+                                                                <form method="post">
+                                                                    {% csrf_token %}
+                                                                    <button class="border-0 ml-2 btn-light"
+                                                                            type="submit"
+                                                                            name="action"
+                                                                            value="newtoken"><a class="compare"
+                                                                                                title=" নতুন  টোকেন জেনারেট করুন"></a>
+                                                                    </button>
+
+                                                                    <button type="button" class="border-0 btn-light"
+                                                                            data-toggle="modal"
+                                                                            data-target="#viewTokenModal">
+                                                                        <a class="viewtoken" title=" টোকেন দেখুন"></a>
+                                                                    </button>
+                                                                </form>
+                                                            {% else %}
+                                                                <button class="border-0 ml-2 btn-light" disabled><a
+                                                                        class="compare"
+                                                                        title="  এখন টোকেন জেনারেট করতে পারবেন না"></a>
+                                                                </button>
+                                                                <button type="button" class="border-0 btn-light"
+                                                                        disabled>
+                                                                    <a class="viewtoken"
+                                                                       title="আপনি বইটি ধার নিয়েছেন"></a>
+                                                                </button>
+                                                            {% endif %}
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="product-addto-links clearfix">
+                                                            <a class="compare" disabled
+                                                               title=" টোকেন জেনারেট করতে হলে অবশ্যই উইশ লিস্টে যুক্ত করতে হবে"></a>
+                                                            <a class="viewtoken" disabled
+                                                               title=" কোন টোকেন নেই"></a>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                                {% if borrowedby.count == 1 %}
+                                                    <div class="addtocart__actions">
+                                                        <p style="font-size: 16px;" class="mb-4">
+                                                            {% if borrowedby.first.borrower.owner.username == user.username %}
+                                                                আপনি
+                                                                <a href="{% url 'profile' username=borrowedby.first.borrower.owner.username %}"><strong>
+                                                                    ({{ borrowedby.first.borrower.owner.first_name }} {{ borrowedby.first.borrower.owner.second_name }})</strong></a>
+                                                                বইটি ধার নিয়েছেন
+                                                            {% else %}
+                                                                {{ borrowedby.first.borrower.owner.first_name }}
+                                                                বইটি ধার নিয়েছে
+                                                            {% endif %}
+
+                                                        </p>
+                                                    </div>
+                                                {% endif %}
+
+                                                {% if borrowedby.first.borrower.owner.username == user.username %}
+                                                    <div class="box-tocart d-flex">
+                                                        <div class="addtocart__actions">
+                                                            <form class="form-inline mb-4" method="post">
+                                                                {% csrf_token %}
+                                                                <div class="form-group mx-sm-3 mb-2">
+                                                                    <label for="inputToken"
+                                                                           class="sr-only">Token</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="return"
+                                                                           value=""
+                                                                           id="inputToken"
+                                                                           placeholder=" সিক্রেট টোকেনটি প্রবেশ করান..."
+                                                                           required>
+                                                                </div>
+                                                                <button type="submit" name="action" value="returnToken"
+                                                                        class="btn btn-primary mb-2">
+                                                                    মিলিয়ে দেখুন
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% else %}
+                                                {% if not book.acceptByAdmin %}
+                                                    <div class="box-tocart d-flex">
+                                                        <div class="addtocart__actions">
+                                                            <button class="tocart"
+                                                                    title="publish pending"
+                                                                    disabled>
+                                                                ভেরিভাই হয়নি
+                                                            </button>
+                                                            <a href="{{ book.get_absolute_url_book_edit }}">
+                                                                <button type="button" class="tocart"> ইডিট করুন
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                {% elif book.deleteRequest %}
+                                                    <form action="#" method="post">
+                                                        <div class="box-tocart d-flex">
+                                                            <div class="addtocart__actions">
+
+                                                                {% csrf_token %}
+                                                                <button type="submit" name="action" value="deactive"
+                                                                        class="tocart"
+                                                                        title="Activate"
+                                                                > এক্টিভেট
+                                                                </button>
+
+                                                            </div>
+                                                        </div>
+                                                    </form>
+
+
+                                                    {# if i own of this book #}
+                                                {% elif not book.available %}
+                                                    <div class="box-tocart d-flex">
+                                                        <div class="addtocart__actions">
+                                                            <button class="tocart"
+                                                                    title=" বইটি ধার নিয়েছে"
+                                                                    disabled>
+                                                                ডিক্টিভেট
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="product-addto-links clearfix">
+                                                            {#                                                            {% if not book.available %}#}
+                                                            <form method="post">
+                                                                {% csrf_token %}
+                                                                <button class="border-0 ml-2 btn-light"
+                                                                        type="submit"
+                                                                        name="action"
+                                                                        value="returntoken"><a class="compare"
+                                                                                               title=" নতুন টোকেন জেনারেট করুন"></a>
+                                                                </button>
+
+                                                                <button type="button" class="border-0 btn-light"
+                                                                        data-toggle="modal"
+                                                                        data-target="#viewReturnTokenModal">
+                                                                    <a class="viewtoken" title=" টোকেন দেখুন"></a>
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+                                                    {% if borrowedby.count == 1 %}
+                                                        <p style="font-size: 16px;" class="mb-4"> আপনার বইটি
+                                                            <a href="{% url 'profile' username=borrowedby.first.borrower.owner.username %}"><strong> {{ borrowedby.first.borrower.owner.first_name }} {{ borrowedby.first.borrower.owner.second_name }}</strong></a>
+                                                            ধার নিয়েছে
+                                                            <br/> ধারের তারিখ: {{ borrowedby.first.borrowBookTime }}
+                                                            <br/> ফেরত তারিখ: {{ borrowedby.first.returnWithin }}
+                                                        </p>
+                                                    {% endif %}
+
+                                                {% else %}
+
+
+
+                                                    <div class="box-tocart d-flex">
+                                                        <div class="addtocart__actions">
+                                                            <form class="form-inline mb-4" method="post">
+                                                                {% csrf_token %}
+                                                                <div class="form-group mx-sm-3 mb-2">
+                                                                    <label for="inputToken"
+                                                                           class="sr-only">Token</label>
+                                                                    <input type="text" class="form-control" name="token"
+                                                                           value=""
+                                                                           id="inputToken"
+                                                                           placeholder="সিক্রেট টোকেনটি প্রবেশ করান... "
+                                                                           required>
+                                                                </div>
+                                                                <button type="submit" name="action" value="confirm"
+                                                                        class="btn btn-primary mb-2">
+                                                                    মিলিয়ে দেখুন
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="box-tocart d-flex ">
+                                                        <div class="addtocart__actions">
+                                                            {% if cnt <= 2 and carts.count > 0 %}
+                                                                <button class="tocart"
+                                                                        title="minimum requirements crashed {{ cnt }}"
+                                                                        disabled>
+                                                                    ডিএক্টিভেট করুন
+                                                                </button>
+
+                                                            {% else %}
+                                                                <button class="btn btn-danger" type="button"
+                                                                        data-toggle="modal" data-target="#delete"
+                                                                        title="Deactivate">
+                                                                    ডিএক্টিভেট করুন
+                                                                </button>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+
+
+                                            {% endif %}
+                                        {% elif user.is_staff %}
+                                            {# if staff  #}
+                                            {#                                            <a class="btn btn-danger" onclick="toastr.error('Hi! I am error message.');">Error message</a>#}
+
+                                            <div class="box-tocart d-flex">
+                                                <div class="addtocart__actions">
+                                                    {% if not book.acceptByAdmin or book.deleteRequest %}
+                                                        <form method="post">
+                                                            {% csrf_token %}
+                                                            <button class="tocart" type="submit" name="verifybook"
+                                                                    value="acceptbyadmin">
+                                                                পাবলিশ করুন
+                                                            </button>
+                                                            <a href="{{ book.get_absolute_url_book_edit }}">
+                                                                <button type="button" class="tocart"> ইডিট করুন
+                                                                </button>
+                                                            </a>
+
+
+                                                            <button type="button" class="tocart" data-toggle="modal"
+                                                                    data-target="#deleteModalCenter"> ডিলিট করুন
+                                                            </button>
+
+
+                                                        </form>
+                                                    {% else %}
+                                                        <button class="tocart" disabled>
+                                                            পাবলিশ করা হয়েছে
+                                                        </button>
+                                                        {#                                                        <a href="{{ book.get_absolute_url_book_edit }}">#}
+                                                        {#                                                            <button type="button" class="tocart"> ইডিট করুন#}
+                                                        {#                                                            </button>#}
+                                                        {#                                                        </a>#}
+
+                                                    {% endif %}
+
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            {# if not authenticate  #}
+                                            <div class="box-tocart d-flex">
+                                                <div class="addtocart__actions">
+                                                    <button class="btn btn-info"><a href="{% url 'account_login' %}"
+                                                                                    title="LOGIN"> উইশলিস্টে যুক্ত
+                                                        করুন</a></button>
+                                                </div>
+                                                <div class="product-addto-links clearfix">
+                                                    <a class="compare" disabled></a>
+                                                    <a class="wishlist" disabled></a>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+
+                                        <div class="product_meta ">
+											<span class="posted_in">ক্যাটাগরি:
+												{{ book.booiCategory }}
+											</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="product__info__detailed">
+                            <div class="pro_details_nav nav justify-content-start" role="tablist">
+                                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-details"
+                                   role="tab">Details</a>
+                                <a class="nav-item nav-link" data-toggle="tab" href="#nav-review"
+                                   role="tab">Book Owner Info</a>
+                            </div>
+                            <div class="tab__container">
+                                <!-- Start Single Tab Content -->
+                                <div class="pro__tab_label tab-pane fade show active" id="nav-details"
+                                     role="tabpanel">
+                                    <div class="description__attribute">
+                                        <p>{{ book.brief }}</p>
+                                        <ul class="mt-4">
+                                            <li>• সকলের সাথে সুন্দর ব্যবহার করুন</li>
+                                            <li>• ধার করা বইয়ের যত্ন নিন।</li>
+                                            <li>• সময়মত বই ফেরত দিন</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center">
+                                    {% if book.booiOwner.owner == request.user and not book.available %}
+                                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                                                data-target="#toOwnerModalCenter"><i class="fa fa-exclamation-triangle"
+                                                                                     aria-hidden="true"></i>
+                                            ধারকৃত ব্যক্তিকে রিপোর্ট করুন
+                                        </button>
+                                    {% else %}
+                                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                                                data-target="#toOwnerModalCenter"><i class="fa fa-exclamation-triangle"
+                                                                                     aria-hidden="true"></i> এই বইটি
+                                            রিপোর্ট
+                                            করুন
+                                        </button>
+
+                                    {% endif %}
+                                </div>
+                                <!-- End Single Tab Content -->
+                                <!-- Start Single Tab Content -->
+                                <div class="pro__tab_label tab-pane fade" id="nav-review" role="tabpanel">
+                                    <div class="review__attribute">
+                                        {#                                        <h1>Customer Reviews</h1>#}
+                                        <h2>{{ book.booiOwner.owner.first_name }} {{ book.booiOwner.owner.last_name }}</h2>
+                                        <div class="review__ratings__type d-flex">
+                                            <div class="review-ratings">
+                                                <div class="rating-summary d-flex">
+                                                    <span><i class="zmdi zmdi-phone-in-talk"></i></span>
+                                                    <ul class="rating d-flex">
+                                                        <li>{{ book.booiOwner.phone }}</li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="rating-summary d-flex">
+                                                    <span><i class="zmdi zmdi-fast-forward"></i></span>
+                                                    <ul class="rating d-flex">
+                                                        <li>{{ book.booiOwner.varsityId }}</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="rating-summary d-flex">
+                                                    <span><i class="zmdi zmdi-email"></i></span>
+                                                    <ul class="rating d-flex">
+                                                        <li>{{ book.booiOwner.owner.email }}</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="rating-summary d-flex">
+                                                    <span><i class="zmdi zmdi-home"></i></span>
+                                                    <ul class="rating d-flex">
+                                                        <li>{{ book.booiOwner.currentCity }}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- End Single Tab Content -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-12 md-mt-40 sm-mt-40">
+                        <div class="shop__sidebar">
+                            <aside class="wedget__categories poroduct--cat">
+                                {% include 'category.html' %}
+
+                            </aside>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End main Content class="text-danger text-center" -->
+
+        <!-- Footer Area -->
+        {% include 'footer.html' %}
+        <!-- //Footer Area -->
+    </div>
+
+    <!-- //Main wrapper -->
+
+    {#    view borrow token#}
+    <div class="modal fade" id="viewTokenModal" tabindex="-1" role="dialog"
+         aria-labelledby="viewTokenModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewTokenModalTitle">Security Token</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% if carts.count > 2 %}
+                    <div class="modal-body">
+                        <p> আপনি একসাথে সর্বোচ্চ তিনটি বই ধার নিতে পারবেন। অন্য বই ধার নিতে চাইলে আপনাকে অবশ্যই একটি বই
+                            তার মালিককে ফেরত দিতে হবে।</p>
+                        <p> আপনার এই সাময়িক অসুবিধার জন্য আমরা দুঃখিত</p>
+                    </div>
+                {% else %}
+                    {% if book.available %}
+                        <div class="modal-body" style="font-size: 38px; font-weight: bold;">
+                            {{ wishlisted.first.securityToken }}
+                        </div>
+                    {% else %}
+                        <div class="modal-body">
+                            <p> বইটি এখন একজন ধার নিয়েছে। সে যখন বইটি ফেরত দিবে তখন আপনি সিক্রেট টোকেন দেখতে পারবেন এবং
+                                তা দিয়ে বইটি ধার নিতে পারবেন।</p>
+                            <p> আপনার এই সাময়িক অসুবিধার জন্য আমরা দুঃখিত</p>
+                        </div>
+                    {% endif %}
+                {% endif %}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {#        view return token#}
+    <div class="modal fade" id="viewReturnTokenModal" tabindex="-1" role="dialog"
+         aria-labelledby="viewReturnTokenModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewReturnTokenModalTitle">Security Token</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="font-size: 38px; font-weight: bold;">
+                    {{ borrowedby.first.returnToken }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {#add to wishlist#}
+    <div class="modal fade" id="requestModal" tabindex="-1" role="dialog"
+         aria-labelledby="requestModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {% if cnt > 1 %}
+                        <h5 class="modal-title" id="requestModalLabel">Borrow request</h5>
+                    {% else %}
+                        <h5 class="modal-title" id="requestModalLabel">Deny Request</h5>
+                    {% endif %}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="text-align: left">
+                    {% if cnt > 1 %}
+                        আপনি <strong>accept</strong>  বাটনে ক্লিক  করার মাধ্যমে <a href="#">Terms of use</a> মানলে
+                        আপনাকে একটি সিক্রেট টোকেন দেওয়া হবে  যেটা
+                        বইটি নেওয়ার সময় বইয়ের মালিক কে দিয়ে ভেরিফাই করতে হবে ।
+                        <br> <br>
+                        অনুগ্রহ পূর্বক টোকেনটি কারো সাথে শেয়ার  করবেন না। তবে আপনি চাইলে ধার নেওয়ার আগে পর্যন্ত
+                        বার বার টোকেন জেনারেট করতে পারবেন।
+                    {% else %}
+                        বই ধার নেওয়ার জন্য অবশ্যই আপনাকে কমপক্ষে 2 টি বই ওয়েবসাইটে পাবলিশ এবং একটিভেট থাকতে হবে।
+                        আপনার এই সাময়িক অসুবিধার জন্য আমরা দুঃখিত। <br>
+                        বই যুক্ত করার জন্য <a href="{% url 'add-book' %}"><strong>Add Book</strong></a> বাটনে
+                        ক্লিক করুন।
+
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    {% if cnt > 1 %}
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Deny</button>
+                        <form action="." method="post"> {# Done #}
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary" name="action" value="request">
+                                Accept
+                            </button>
+                        </form>
+                    {% else %}
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Got it</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {#    delete book#}
+    <div class="modal fade" id="delete" tabindex="-1"
+         role="dialog" aria-labelledby="deleteLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"
+                        id="deleteLabel">Confirm Deactivate</h5>
+                    <button type="button" class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    আপনি এটি কনফার্ম করার পর বইটি ডিএক্টিভেট হয়ে যাবে। এরপর অন্য কেউ বইটি ধার নিতে বা দেখতে
+                    পারবে না।
+                    তবে আপনি চাইলে <strong>Activate</strong> বাটনে ক্লিক করে আবার বইটি একটিভেট করতে পারবেন।<br>
+                    <strong>সতর্কীকরণ:</strong> আপনার একটিভেট বইয়ের সংখ্যা 2 এর কম হলে আপনার <a
+                        href="{% url 'wish-list' %}">উইশলিস্ট</a> অটোমেটিক ক্লিয়ার হয়ে যাবে এবং আপনি আর কোন বই ধার নিতে
+                    পারবেন না।
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">Close
+                    </button>
+                    <form action="."
+                          method="post">
+                        {% csrf_token %}
+                        <button type="submit" name="action"
+                                value="delete"
+                                class="btn btn-primary">Confirm
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="deleteModalCenter" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalCenterTitle">বই ডিলিট</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    বইটিকে একবার ডিলিট করলে আপনি আর সেটাকে ফেরত আনতে পারবেন না
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">না</button>
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" name="verifybook" value="deletebook" class="btn btn-warning"> ঠিক আছে
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="toOwnerModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="toOwnerModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="toOwnerModalLongTitle">রিপোর্ট</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="reportbookform" action="{{ book.get_absolute_url_book_details }}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        {% if book.booiOwner.owner.username == user.username and not book.available %}
+                            {{ b_form|crispy }}
+                        {% else %}
+                            {{ form|crispy }}
+                        {% endif %}
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> কেটে দিন</button>
+                        <button type="submit" name="action"
+                               {% if book.booiOwner.owner.username == user.username and not book.available %}
+                                value="reportborrower"
+                                {% else %}
+                                value="reportbook"
+                                {% endif %}
+                                class="btn btn-primary">
+                            সাবমিট করুন
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
