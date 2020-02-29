@@ -24,6 +24,7 @@ class UserProfile(models.Model):
     phone = models.CharField(max_length=11, null=True, blank=True)
     dateOfBirth = models.DateField(null=True, blank=True)
     bg = models.CharField(max_length=6, choices=sc.CHOICES_BG, null=True, blank=True)
+    gender = models.CharField(max_length=55, choices=sc.CHOICES_gender, null=True, blank=True)
 
     #education
     school = models.CharField(max_length=255, null=True, blank=True)

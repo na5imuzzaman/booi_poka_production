@@ -14,3 +14,9 @@ CHOICES_BG = (
     ('AB +ve', 'AB +ve'),
     ('AB -ve', 'AB -ve'),
 )
+
+CHOICES_gender = (
+    ('male', 'male'),
+    ('female', 'female'),
+    ('rather not say', 'rather not say'),
+)
