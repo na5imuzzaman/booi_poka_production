@@ -75,7 +75,7 @@
                                             <span class="text-capitalize">{{ book.booiAuthor }}</span>
                                         </div>
                                         <div class="product__overview">
-                                            <p>{{ book.brief|safe|truncatewords:"45" }}</p>
+                                            <p>{{ book.brief| linebreaks |safe|truncatewords:"45" }}</p>
 
                                         </div>
 
@@ -381,7 +381,7 @@
                                 <div class="pro__tab_label tab-pane fade show active" id="nav-details"
                                      role="tabpanel">
                                     <div class="description__attribute">
-                                        <p>{{ book.brief }}</p>
+                                        <p>{{ book.brief | linebreaks }}</p>
                                         <ul class="mt-4">
                                             <li>• সকলের সাথে সুন্দর ব্যবহার করুন</li>
                                             <li>• ধার করা বইয়ের যত্ন নিন।</li>
