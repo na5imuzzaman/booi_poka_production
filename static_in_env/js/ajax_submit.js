@@ -20,7 +20,6 @@
 //     });
 // });
 
-
 $('#all_book').click(function () {
     $('input[name="filter"]').val('all-book');
     $('#search').submit();

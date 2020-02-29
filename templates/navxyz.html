@@ -13,10 +13,9 @@
             <div class="col-lg-8 d-none d-lg-block">
                 <nav class="mainmenu__nav">
                     <ul class="meninmenu d-flex justify-content-start">
-                        <li class="drop with--one--item"><a href="{% url 'home' %}">Home</a></li>
-
-                        <li class="drop"><a disabled>Books</a>
-                            <div class="megamenu mega03">
+                        <li class="drop with--one--item"><a href="{% url 'home' %}">হোম</a></li>
+                        <li class="drop with--one--item"><a href="{% url 'home' %}">  আমার বই</a>
+                            <div class="megamenu dropdown">
                                 <form id="search" action="{% url 'book-view' %}" method="get">
                                     <ul class="item item01">
                                         <li class="title">অপশন</li>
@@ -30,7 +29,11 @@
                                         <li><a href="{% url 'add-book' %}"> নতুন বই যুক্ত করুন</a></li>
                                     </ul>
                                 </form>
+                            </div>
+                        </li>
 
+                        <li class="drop"><a href="#"  disabled> এক্সপ্লোর বুকস</a>
+                            <div class="megamenu mega02">
                                 <form id="search" action="{% url 'book-view' %}" method="get">
                                     <ul class="item item02">
                                         <li class="title">ক্যাটাগরী</li>
@@ -71,8 +74,8 @@
                                 </form>
                             </div>
                         </li>
-                        <li><a href="contact.html">how it works</a></li>
-                    <li><a href="#help-me">Need Help?</a></li>
+                        <li><a href="contact.html"> কিভাবে কাজ করে?</a></li>
+                        <li><a href="#help-me"> হেল্প লাগবে?</a></li>
 
                         {% if request.user.is_staff %}
 
@@ -105,10 +108,10 @@
                     <li class="shop_search"><a class="search__active" href="#"></a></li>
 
                     <li class="notification"><a class="cartbox_active cactivated" href="#">
-{#                        {% if noti_cnt > 0 %}#}
-{#                            <span class="product_qun">{{ noti_cnt }}</span></a>#}
-{#                        {% endif %}#}
-                    <span class="product_qun">{{ noti_cnt }}</span></a>
+                        {#                        {% if noti_cnt > 0 %}#}
+                        {#                            <span class="product_qun">{{ noti_cnt }}</span></a>#}
+                        {#                        {% endif %}#}
+                        <span class="product_qun">{{ noti_cnt }}</span></a>
 
                         <!-- Start Notification -->
                         <div class="block-minicart minicart__active  activated">
@@ -206,7 +209,7 @@
                     <li class="wishlist"><a href="{% url 'wish-list' %}"></a></li>
 
                     <li class="shopcart"><a class="cartbox_active ccactivate" href="#">
-                            <span class="product_qun">{{ carts.count }}</span></a>
+                        <span class="product_qun">{{ carts.count }}</span></a>
 
                         <!-- Start Shopping Cart -->
                         <div class="block-minicart ccactivated">

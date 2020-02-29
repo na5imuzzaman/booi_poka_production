@@ -2738,9 +2738,9 @@ Header Styles
     align-self: stretch;
     color: #333;
     display: flex;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
-    padding: 0 25px;
+    padding: 0 15px;
     text-transform: uppercase;
     transition: all 0.4s ease 0s;
 }
