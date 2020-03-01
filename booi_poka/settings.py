@@ -24,7 +24,7 @@ SECRET_KEY = '6@xz_r4f&)^ndfpf4o-h%ghfz7ghw%&gfh%4*aus*z=q74nb_hb4$#3hs1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'nasimuzzaman.me', 'www.nasimuzzaman.me']
+ALLOWED_HOSTS = ['127.0.0.1', 'nasimuzzaman.me', 'www.nasimuzzaman.me', 'www.kakatua.tech', 'kakatua.tech']
 
 # Application definition
 
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    #3rd
+    # 3rd
     'crispy_forms',
     'tinymce',
 
@@ -84,7 +84,6 @@ TEMPLATES = [
     },
 ]
 
-
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
@@ -92,7 +91,6 @@ AUTHENTICATION_BACKENDS = (
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-
 
 WSGI_APPLICATION = 'booi_poka.wsgi.application'
 
@@ -117,7 +115,6 @@ else:
             'PORT': '',
         }
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -145,7 +142,6 @@ DEFAULT_FROM_EMAIL = 'kakatua.live <noreply@kakatua.io>'
 EMAIL_HOST_PASSWORD = '1KE7ydkXQu623LH_kZkNvQ.8RDzhxcHR'
 EMAIL_PORT = 587
 
-
 AUTH_USER_MODEL = 'local_users.LocalUser'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
@@ -169,7 +165,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
@@ -186,7 +181,6 @@ LOGIN_REDIRECT_URL = "/"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 ALLOW_UNICODE_SLUGS = True
-
 
 # LOGIN_REDIRECT_URL = "/"
 # LOGOUT_REDIRECT_URL = "/"
