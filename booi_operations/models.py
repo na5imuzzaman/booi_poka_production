@@ -14,14 +14,14 @@ from local_users.models import UserProfile
 
 
 def get_uplaod_file_name(booiowner, filename):
-    return u'photos/%s/%s/%s' % (booiowner.booiOwner.owner.username, booiowner.booiName, filename)
+    return u'photos/%s/%s/%s' % (booiowner.booiOwner.owner.username, booiowner.booiName[:30], filename)
 
 
 class Booi(models.Model):
     image = models.ImageField(upload_to=get_uplaod_file_name)
-    booiName = models.CharField(max_length=255)
-    booiAuthor = models.CharField(max_length=255)
-    booiCategory = models.CharField(max_length=255) #choices=category.CHOICES_Category
+    booiName = models.CharField(max_length=2055)
+    booiAuthor = models.CharField(max_length=1055)
+    booiCategory = models.CharField(max_length=1055) #choices=category.CHOICES_Category
     booiCondition = models.CharField(max_length=255, choices=conditions.CHOICES_Condition)
     available = models.BooleanField(default=True)
     price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
@@ -33,7 +33,7 @@ class Booi(models.Model):
     acceptByAdmin = models.BooleanField(default=False)
     deleteRequest = models.BooleanField(default=False)
     finally_publish = models.BooleanField(default=False)
-    search_keyword = models.CharField(max_length=2055, null=True, blank=True)
+    search_keyword = models.CharField(max_length=5055, null=True, blank=True)
     slug = models.SlugField(allow_unicode=True, null=True, blank=True, max_length=2055)
 
     def save(self, *args, **kwargs):
@@ -71,7 +71,7 @@ class Booi(models.Model):
 @receiver(post_save, sender=Booi)
 def add_slug(instance, sender, **kwargs):
     if not instance.slug:
-        slug = instance.booiName.replace(' ', '_')
+        slug = instance.booiName.replace(' ', '-')
         # slug = slugify(instance.booiName, allow_unicode=True)
         slug = "%s_%s" % (instance.id, slug)
         instance.slug = slug
