@@ -338,7 +338,7 @@ def filter_book(request):
             query = request.GET.get('search')
             results = Booi.objects.filter(
                 Q(booiName__icontains=query) | Q(search_keyword__icontains=query) | Q(booiAuthor__icontains=query) | Q(booiCategory__icontains=query) | Q(
-                    booiOwner__owner__first_name__icontains=query) ).exclude(
+                    booiOwner__owner__first_name__icontains=query)).exclude(
                 Q(deleteRequest=True) | Q(acceptByAdmin=False))
         else:
             query = request.GET.get('filter')
@@ -353,7 +353,7 @@ def filter_book(request):
                     results = Booi.objects.filter(deleteRequest=True)
 
             elif query == 'all-book':
-                results = Booi.objects.filter(deleteRequest=False, acceptByAdmin=True)
+                results = Booi.objects.filter(deleteRequest=False, acceptByAdmin=True).order_by('?')
             elif query == 'my-books':
                 results = Booi.objects.filter(deleteRequest=False,
                                               booiOwner__owner__username__exact=request.user.username,
