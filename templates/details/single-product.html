@@ -390,23 +390,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row justify-content-center">
-                                    {% if book.booiOwner.owner == request.user and not book.available %}
-                                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                                                data-target="#toOwnerModalCenter"><i class="fa fa-exclamation-triangle"
-                                                                                     aria-hidden="true"></i>
-                                            ধারকৃত ব্যক্তিকে রিপোর্ট করুন
-                                        </button>
-                                    {% else %}
-                                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                                                data-target="#toOwnerModalCenter"><i class="fa fa-exclamation-triangle"
-                                                                                     aria-hidden="true"></i> এই বইটি
-                                            রিপোর্ট
-                                            করুন
-                                        </button>
 
-                                    {% endif %}
-                                </div>
                                 <!-- End Single Tab Content -->
                                 <!-- Start Single Tab Content -->
                                 <div class="pro__tab_label tab-pane fade" id="nav-review" role="tabpanel">
@@ -446,6 +430,26 @@
 
                                 </div>
                                 <!-- End Single Tab Content -->
+
+                                <div class="row justify-content-center">
+                                    {% if book.booiOwner.owner == request.user and not book.available %}
+                                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                                                data-target="#toOwnerModalCenter"><i class="fa fa-exclamation-triangle"
+                                                                                     aria-hidden="true"></i>
+                                            ধারকৃত ব্যক্তিকে রিপোর্ট করুন
+                                        </button>
+                                    {% else %}
+                                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                                                data-target="#toOwnerModalCenter"><i class="fa fa-exclamation-triangle"
+                                                                                     aria-hidden="true"></i> এই বইটি
+                                            রিপোর্ট
+                                            করুন
+                                        </button>
+
+                                    {% endif %}
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -657,27 +661,40 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
                 <form id="reportbookform" action="{{ book.get_absolute_url_book_details }}" method="post">
                     {% csrf_token %}
+
                     <div class="modal-body">
-                        {% if book.booiOwner.owner.username == user.username and not book.available %}
-                            {{ b_form|crispy }}
+                        {% if user.is_authenticated %}
+                            {% if book.booiOwner.owner.username == user.username and not book.available %}
+                                {{ b_form|crispy }}
+                            {% else %}
+                                {{ form|crispy }}
+                            {% endif %}
                         {% else %}
-                            {{ form|crispy }}
+                            কোন বই বা ইউজারকে রিপোর্ট
+                            করতে হলে অবশ্যই আপনাকে
+                            <strong> <a href="{% url 'account_login' %}"> লগ ইন</a> </strong> করতে হবে।
                         {% endif %}
                     </div>
 
+
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> কেটে দিন</button>
-                        <button type="submit" name="action"
-                               {% if book.booiOwner.owner.username == user.username and not book.available %}
-                                value="reportborrower"
-                                {% else %}
-                                value="reportbook"
-                                {% endif %}
-                                class="btn btn-primary">
-                            সাবমিট করুন
-                        </button>
+                        {% if user.is_authenticated %}
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"> কেটে দিন</button>
+                            <button type="submit" name="action"
+                                    {% if book.booiOwner.owner.username == user.username and not book.available %}
+                                    value="reportborrower"
+                                    {% else %}
+                                    value="reportbook"
+                                    {% endif %}
+                                    class="btn btn-primary">
+                                সাবমিট করুন
+                            </button>
+                        {% else %}
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"> বুঝতে পারছি</button>
+                        {% endif %}
                     </div>
                 </form>
             </div>
