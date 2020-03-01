@@ -34,7 +34,7 @@ class Booi(models.Model):
     deleteRequest = models.BooleanField(default=False)
     finally_publish = models.BooleanField(default=False)
     search_keyword = models.CharField(max_length=2055, null=True, blank=True)
-    slug = models.SlugField(allow_unicode=True, null=True, blank=True, max_length=20055)
+    slug = models.SlugField(allow_unicode=True, null=True, blank=True, max_length=2055)
 
     def save(self, *args, **kwargs):
         if not self.id:
