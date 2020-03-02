@@ -114,9 +114,9 @@
 
             <div class="col-md-6 col-sm-6 col-6 col-lg-2">
                 <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
-                    <li class="shop_search"><a class="search__active" href="#"></a></li>
+                    <li class="shop_search"><a class="search__active" href="#" title=" বই খুঁজুন"></a></li>
 
-                    <li class="notification"><a class="cartbox_active cactivated" href="#">
+                    <li class="notification"><a class="cartbox_active cactivated" title="নোটিফিকেশন" href="#">
                         <span class="product_qun">{{ noti_cnt }}</span></a>
 
                         <!-- Start Notification -->
@@ -212,9 +212,9 @@
                     </li>
 
 
-                    <li class="wishlist"><a href="{% url 'wish-list' %}"></a></li>
+                    <li class="wishlist"><a href="{% url 'wish-list' %}" title="উইশলিষ্ট"></a></li>
 
-                    <li class="shopcart"><a class="cartbox_active ccactivate" href="#">
+                    <li class="shopcart"><a class="cartbox_active ccactivate" title=" ধারকৃত বই" href="#">
                         <span class="product_qun">{{ carts.count }}</span></a>
 
                         <!-- Start Shopping Cart -->
