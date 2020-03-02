@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a
+            href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+    <!-- Main wrapper -->
+    <div class="wrapper" id="wrapper">
+
+        <!-- Header -->
+        {% include 'navxyz.html' %}
+        <!-- //Header -->
+
+        <!-- Start Bradcaump area -->
+        <div class="ht__bradcaump__area bg-image--6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="bradcaump__inner text-center">
+                            <h2 class="bradcaump-title">Contact Us</h2>
+                            <nav class="bradcaump-content">
+                                <a class="breadcrumb_item" href="{% url 'home' %}">Home</a>
+                                <span class="brd-separetor">/</span>
+                                <span class="breadcrumb_item active">Contact Us</span>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Bradcaump area -->
+
+        <div class="row justify-content-center">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" onclick="loadfaq()" id="nav-home-tab" data-toggle="tab" href="#"
+                       role="tab"
+                       aria-controls="nav-home" aria-selected="true">প্রতিনিয়ত জিজ্ঞাসিত প্রশ্ন</a>
+                    <a class="nav-item nav-link" onclick="loadourstory()" id="nav-profile-tab" data-toggle="tab"
+                       href="#" role="tab"
+                       aria-controls="nav-profile" aria-selected="false">আমাদের গল্প</a>
+                    <a class="nav-item nav-link" onclick="loadprivacy()" id="nav-contact-tab" data-toggle="tab" href="#"
+                       role="tab"
+                       aria-controls="nav-contact" aria-selected="false">গোপনীয়তা নীতি</a>
+                    <a class="nav-item nav-link" onclick="loadtermofuse()" id="nav-contact-tab" data-toggle="tab"
+                       href="#" role="tab"
+                       aria-controls="nav-contact" aria-selected="false">ব্যবহারের নিয়মাবলি</a>
+                    <a class="nav-item nav-link" onclick="loadcontact()" id="nav-contact-tab" data-toggle="tab" href="#"
+                       role="tab"
+                       aria-controls="nav-contact" aria-selected="false">যোগাযোগ</a>
+                </div>
+            </nav>
+        </div>
+        <!-- Footer Area -->
+        {% include 'footer.html' %}
+        <!-- //Footer Area -->
+
+    </div>
+    <!-- //Main wrapper -->
+
+{% endblock %}

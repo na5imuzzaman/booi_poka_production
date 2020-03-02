@@ -11,5 +11,6 @@ urlpatterns = [
     path('contact-info/', hv.contact_view, name='contact-info'),
     path('report_details/', hv.report_details_view, name='report-details'),
     path('notifications/', hv.all_notification_view, name='all-notification'),
+    path('terms-of-use/', hv.termsofuse, name='terms-of-use'),
     # path('', TemplateView.as_view(template_name='help.html'), name='help-section'),
 ]

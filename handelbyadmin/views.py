@@ -219,3 +219,24 @@ def all_notification_view(request):
         'carts': carts,
     }
     return render(request, 'push_notification/all_notification.html', context)
+
+
+def termsofuse(request):
+    carts = LendBooi.objects.filter(borrower__owner__username__exact=request.user.username, borrowed=True,
+                                    returnBook=False)
+    # for notification start
+    notifications = Notification.objects.filter(Q(to=request.user.username) | Q(to='for_all'))[:5]
+    noti_cnt = 0
+
+    if request.user.is_authenticated:
+        user = UserProfile.objects.get(owner__username__exact=request.user.username)
+        noti_cnt = user.notification
+    # for notification end
+    
+    context = {
+        'carts': carts,
+        'notifications': notifications,
+        'noti_cnt': noti_cnt,
+    }
+    
+    return render(request, 'help/terms_of_use.html', context)

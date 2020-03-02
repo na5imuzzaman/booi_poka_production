@@ -8986,3 +8986,11 @@ p.titlefont {
 table, td, th {
     border-bottom: 1px solid #343A40;
 }
+
+.noticart {
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: -20px;
+    border-bottom: #aaaaaa 2px solid;
+    margin-bottom: 10px;
+}
