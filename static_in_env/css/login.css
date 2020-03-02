@@ -2,7 +2,7 @@ body {
     /*padding: 2em;*/
     width: 100%;
     /*background: url("../images/bg/rsz_jakub-sofranko-royujmhrdxa-unsplash.jpg") no-repeat;*/
-  background: url("../images/bg/rsz_login.jpg");
+  background: url("../images/bg/rsz_login.jpg") no-repeat 0 0 darkslateblue;
     overflow-y: hidden;
     overflow-x: hidden;
     font-family: "Poppins", sans-serif;

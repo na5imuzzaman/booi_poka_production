@@ -2265,7 +2265,7 @@ Elements Styles
     border-color: #ccc currentcolor;
     -o-border-image: none;
     border-style: solid none;
-    border-width: 1px 0 0 0;
+    border-width: 0 0 1px 0;
     /*margin: 20px -20px 0;*/
     overflow: hidden;
     /*padding: 15px;*/
