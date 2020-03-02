@@ -129,7 +129,7 @@
                                 <div class="micart__close closed "></div>
 
                                 {% if notifications.count == 0 or not user.is_authenticated %}
-                                    <span> কোন নোটিফিকেশন নেই</span>
+                                    <span> <small>কোন নোটিফিকেশন নেই</small></span>
                                 {% else %}
                                     {% for notification in notifications %}
                                         <div class="single__items mt-2">
@@ -228,7 +228,7 @@
                                 </div>
                                 {#                                <p class="mb-2">Borrowed lists</p>#}
                                 <div class="noticart">
-                                    ধারকৃত বই
+                                    ধারকৃত বই <sub> সর্বোচ্চ ৩টি</sub>
                                 </div>
                                 {% for cart in carts %}
                                     <div class="single__items">
@@ -258,7 +258,7 @@
 
 
                                 {% if carts.count == 0 %}
-                                    <span style="text-transform: capitalize"> আপনি কোন বই ধার নেন নি</span>
+                                    <span><small> আপনি কোন বই ধার নেন নি</small></span>
                                 {% endif %}
                             </div>
                         </div>
