@@ -14,11 +14,11 @@
                 <nav class="mainmenu__nav">
                     <ul class="meninmenu d-flex justify-content-start">
                         <li class="drop with--one--item"><a href="{% url 'home' %}">হোম</a></li>
-                        <li class="drop with--one--item"><a href="/filter-books/?filter=my-books">   ম্যানেজ বুকস</a>
+                        <li class="drop with--one--item"><a href="/filter-books/?filter=my-books"> ম্যানেজ বুকস</a>
                             <div class="megamenu dropdown">
                                 <form id="search" action="{% url 'book-view' %}" method="get">
                                     <ul class="item item01">
-                                        <li class="title">অপশন</li>
+{#                                        <li class="title">অপশন</li>#}
 
                                         <input id="all-book" type="text" name="filter" value="" aria-hidden="true"
                                                hidden>
@@ -32,11 +32,11 @@
                             </div>
                         </li>
 
-                        <li class="drop"><a href="/filter-books/?filter=all-book" > এক্সপ্লোর বুকস</a>
+                        <li class="drop"><a href="/filter-books/?filter=all-book"> এক্সপ্লোর বুকস</a>
                             <div class="megamenu mega02">
                                 <form id="search" action="{% url 'book-view' %}" method="get">
                                     <ul class="item item02">
-                                        <li class="title">ক্যাটাগরী</li>
+{#                                        <li class="title">ক্যাটাগরী</li>#}
                                         <input type="text" name="filter" value="" aria-hidden="true"
                                                hidden>
                                         <li><a href="#" id="all_book"> সকল বই</a></li>
@@ -50,7 +50,7 @@
 
                                 <form id="search" action="{% url 'book-view' %}" method="get">
                                     <ul class="item item03">
-                                        <li class="title">ক্যাটাগরী</li>
+{#                                        <li class="title">ক্যাটাগরী</li>#}
                                         <input type="text" name="filter" value="" aria-hidden="true"
                                                hidden>
                                         <li><a href="#" id="magazine">ম্যাগাজিন</a></li>
@@ -64,7 +64,7 @@
 
                                 <form id="search" action="{% url 'book-view' %}" method="get">
                                     <ul class="item item04">
-                                        <li class="title">ক্যাটাগরী</li>
+{#                                        <li class="title">ক্যাটাগরী</li>#}
                                         <input type="text" name="filter" value="" aria-hidden="true"
                                                hidden>
                                         <li><a href="#" id="science_fiction">সাইন্স ফিকশন</a></li>
@@ -78,7 +78,18 @@
                             </div>
                         </li>
                         <li><a href="contact.html"> কিভাবে কাজ করে?</a></li>
-                        <li><a href="#help-me"> হেল্প লাগবে?</a></li>
+                        <li class="drop with--one--item"><a href="#" disabled> হেল্প লাগবে?</a>
+                            <div class="megamenu dropdown">
+                                <ul class="item item01">
+{#                                    <li class="title">অপশন</li>#}
+                                    <li><a href="{% url 'faq-view' %}">প্রতিনিয়ত জিজ্ঞাসিত প্রশ্ন</a></li>
+                                    <li><a href="{% url 'our-story' %}">আমাদের গল্প</a></li>
+                                    <li><a href="#">গোপনীয়তা নীতি</a></li>
+                                    <li><a href="#">ব্যবহারের নিয়মাবলি</a></li>
+                                    <li><a href="{% url 'contact-info' %}">যোগাযোগ</a></li>
+                                </ul>
+                            </div>
+                        </li>
 
                         {% if request.user.is_staff %}
 
