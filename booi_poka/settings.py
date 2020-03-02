@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6@xz_r4f&)^ndfpf4o-h%ghfz7ghw%&gfh%4*aus*z=q74nb_hb4$#3hs1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'nasimuzzaman.me', 'www.nasimuzzaman.me', 'www.kakatua.tech', 'kakatua.tech']
 
@@ -138,7 +138,7 @@ EMAIL_USE_TLS = True
 SEND_GRID_API_KEY = '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'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'nasimuzzaman'
-DEFAULT_FROM_EMAIL = 'kakatua.live <noreply@kakatua.io>'
+DEFAULT_FROM_EMAIL = 'kakatua.tech <noreply@kakatua.tech>'
 EMAIL_HOST_PASSWORD = '1KE7ydkXQu623LH_kZkNvQ.8RDzhxcHR'
 EMAIL_PORT = 587
 

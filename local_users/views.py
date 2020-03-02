@@ -25,7 +25,7 @@ def profile_edit_view(request, username):
                                         returnBook=False)
         ins = UserProfile.objects.get(owner__username__exact=username)
         if request.method == 'POST':
-            form = UserProfileForm(request.POST or None,  instance=ins)
+            form = UserProfileForm(request.POST or None, instance=ins)
             if form.is_valid():
                 form.save()
                 return redirect('../')
@@ -73,8 +73,3 @@ def profile_view(request, username):
     }
 
     return render(request, 'user_account/user_account_view.html', context)
-
-
-
-
-

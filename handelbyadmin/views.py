@@ -129,7 +129,7 @@ def contact_view(request):
         subject = request.POST['subject']
         message = request.POST['message']
         fake_sub = "Got a new mail from " + name
-        admin_email = 'nasimuzzaman15-1127@diu.edu.bd'
+        admin_email = 'kakatua.tech@gmail.com'
         body = render_to_string('response_email.html', {
             'name': name,
             'email': email,
