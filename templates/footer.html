@@ -4,6 +4,31 @@
     <link rel="stylesheet" href="{% static 'footer.css' %}">
 {% endblock %}
 
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            xfbml: true,
+            version: 'v6.0'
+        });
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Your customer chat code -->
+<div class="fb-customerchat"
+     attribution=setup_tool
+     page_id="100987274853664">
+</div>
+
 <section id="help-me">
     <div class="mt-5 pt-5 pb-5 footer">
         <div class="container">
@@ -11,7 +36,7 @@
                 <div class="col-lg-5 col-xs-12 about-company">
                     <p>developed by</p>
                     <h2>dotOnion</h2>
-                    <p class="pr-5 text-white-50">  ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটির  কতিপয় <br> ছাত্র দ্বারা
+                    <p class="pr-5 text-white-50"> ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটির কতিপয় <br> ছাত্র দ্বারা
                         পরিচালিত একটি অলাভজনক প্রতিষ্ঠান</p>
                     <p class="mt-3">
                         <a href="#"><i class="bi bi-facebook mr-2"></i></a>
