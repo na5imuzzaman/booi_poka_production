@@ -346,13 +346,13 @@
                                             {# if not authenticate  #}
                                             <div class="box-tocart d-flex">
                                                 <div class="addtocart__actions">
-                                                    <button class="btn btn-info"><a href="{% url 'account_login' %}"
-                                                                                    title="LOGIN"> উইশলিস্টে যুক্ত
-                                                        করুন</a></button>
+                                                    <a href="{% url 'account_login' %}" title="LOGIN">
+                                                        <button class="btn btn-info"> উইশলিস্টে যুক্ত করুন</button>
+                                                    </a>
                                                 </div>
                                                 <div class="product-addto-links clearfix">
-                                                    <a class="compare" disabled></a>
-                                                    <a class="wishlist" disabled></a>
+                                                    <a class="compare" title=" লগইন করুন" href="{% url 'account_login' %}"></a>
+                                                    <a class="viewtoken" title=" লগইন করুন" href="{% url 'account_login' %}"></a>
                                                 </div>
                                             </div>
                                         {% endif %}
@@ -550,7 +550,8 @@
                 </div>
                 <div class="modal-body" style="text-align: left">
                     {% if cnt > 1 %}
-                        আপনি <strong>accept</strong>  বাটনে ক্লিক  করার মাধ্যমে <a href="{% url 'terms-of-use' %}">Terms of use</a> মানলে
+                        আপনি <strong>accept</strong>  বাটনে ক্লিক  করার মাধ্যমে
+                        <a href="{% url 'terms-of-use' %}">Terms of use</a> মানলে
                         আপনাকে একটি সিক্রেট টোকেন দেওয়া হবে  যেটা
                         বইটি নেওয়ার সময় বইয়ের মালিক কে দিয়ে ভেরিফাই করতে হবে ।
                         <br> <br>
