@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6@xz_r4f&)^ndfpf4o-h%ghfz7ghw%&gfh%4*aus*z=q74nb_hb4$#3hs1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'nasimuzzaman.me', 'www.nasimuzzaman.me', 'www.kakatua.tech', 'kakatua.tech']
 
