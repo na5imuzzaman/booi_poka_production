@@ -18,7 +18,7 @@ class Faq(models.Model):
         return "%s --> %s" % (self.added_by.owner.username, self.question)
 
     class Meta:
-        ordering = ['-add_time']
+        ordering = ['add_time']
 
 
 class Notification(models.Model):

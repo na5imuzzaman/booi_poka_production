@@ -10,5 +10,6 @@ urlpatterns = [
     path('our-story/', hv.our_story_view, name='our-story'),
     path('contact-info/', hv.contact_view, name='contact-info'),
     path('report_details/', hv.report_details_view, name='report-details'),
-    path('notifications/', hv.all_notification_view, name='all-notification')
+    path('notifications/', hv.all_notification_view, name='all-notification'),
+    # path('', TemplateView.as_view(template_name='help.html'), name='help-section'),
 ]

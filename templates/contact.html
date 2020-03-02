@@ -3,16 +3,17 @@
 
 
 {% block content %}
-	<!--[if lte IE 9]>
-		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-	<![endif]-->
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a
+            href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
 
-	<!-- Main wrapper -->
-	<div class="wrapper" id="wrapper">
+    <!-- Main wrapper -->
+    <div class="wrapper" id="wrapper">
 
-		<!-- Header -->
-		{% include 'navxyz.html' %}
-		<!-- //Header -->
+        <!-- Header -->
+        {% include 'navxyz.html' %}
+        <!-- //Header -->
 
         <!-- Start Bradcaump area -->
         <div class="ht__bradcaump__area bg-image--6">
@@ -20,11 +21,11 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="bradcaump__inner text-center">
-                        	<h2 class="bradcaump-title">Contact Us</h2>
+                            <h2 class="bradcaump-title">Contact Us</h2>
                             <nav class="bradcaump-content">
-                              <a class="breadcrumb_item" href="{% url 'home' %}">Home</a>
-                              <span class="brd-separetor">/</span>
-                              <span class="breadcrumb_item active">Contact Us</span>
+                                <a class="breadcrumb_item" href="{% url 'home' %}">Home</a>
+                                <span class="brd-separetor">/</span>
+                                <span class="breadcrumb_item active">Contact Us</span>
                             </nav>
                         </div>
                     </div>
@@ -36,15 +37,16 @@
 
         <!-- Start Contact Area -->
         <section class="wn_contact_area bg--white pt--80 pb--80">
-
-        	<div class="container">
-        		<div class="row">
-        			<div class="col-lg-8 col-12">
-        				<div class="contact-form-wrap">
-        					<h2 class="contact__title"> যোগাযোগ করুন </h2>
-        					<p>
-                                  আপনাদের প্রতিটি মেইল  আমাদের কাছে গুরুত্বপূর্ণ।  আপানদের সকল সাজেশন, অভিযোগ, অনুযোগ আমরা খুব আগ্রহভরে মূল্যায়ন করি।
-                                 <strong>লিখুন আমাদের</strong>।  আপনাদের প্রতিটি প্রতিক্রিয়া  আমাদের আরও বেশি উজ্জীবিত করবে।
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-12">
+                        <div class="contact-form-wrap">
+                            <h2 class="contact__title"> যোগাযোগ করুন </h2>
+                            <p>
+                                আপনাদের প্রতিটি মেইল আমাদের কাছে গুরুত্বপূর্ণ। আপানদের সকল সাজেশন, অভিযোগ, অনুযোগ আমরা
+                                খুব আগ্রহভরে মূল্যায়ন করি।
+                                <strong>লিখুন আমাদের</strong>। আপনাদের প্রতিটি প্রতিক্রিয়া আমাদের আরও বেশি উজ্জীবিত
+                                করবে।
                             </p>
                             <form method="post">
                                 {% csrf_token %}
@@ -65,66 +67,68 @@
                                 </div>
                             </form>
                         </div>
-        			</div>
-        			<div class="col-lg-4 col-12 md-mt-40 sm-mt-40">
-        				<div class="wn__address">
-        					<h2 class="contact__title"> অফিসের তথ্য</h2>
-        					<p>
-                                   অফিস,  অফিস বলতে আমরা বুঝি যেখানে  বসে  আমরা কাজ করি।  আমাদের সমস্যা গুলোর  সমাধান খুঁজি।  সেভাবে ভাবতে গেলে আমারা আমাদের
-                                  অফিস বলতে  যা বুঝায় সেটা   আমাদের <strong> 'হল'</strong> , আমাদের <strong> 'ভার্সিটি'</strong>।
+                    </div>
+                    <div class="col-lg-4 col-12 md-mt-40 sm-mt-40">
+                        <div class="wn__address">
+                            <h2 class="contact__title"> অফিসের তথ্য</h2>
+                            <p>
+                                অফিস, অফিস বলতে আমরা বুঝি যেখানে বসে আমরা কাজ করি। আমাদের সমস্যা গুলোর সমাধান খুঁজি।
+                                সেভাবে ভাবতে গেলে আমারা আমাদের
+                                অফিস বলতে যা বুঝায় সেটা আমাদের <strong> 'হল'</strong> , আমাদের <strong>
+                                'ভার্সিটি'</strong>।
                             </p>
-        					<div class="wn__addres__wreapper">
+                            <div class="wn__addres__wreapper">
 
-        						<div class="single__address">
-        							<i class="icon-location-pin icons"></i>
-        							<div class="content">
-        								<span> হেড অফিস:</span>
-        								<p>
+                                <div class="single__address">
+                                    <i class="icon-location-pin icons"></i>
+                                    <div class="content">
+                                        <span> হেড অফিস:</span>
+                                        <p>
                                             ই105, ইউনুস খান স্কলারস গার্ডেন
                                             <br>
                                             ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটি
                                             <br>
                                             আশুলিয়া, সাভার, ঢাকা
                                         </p>
-        							</div>
-        						</div>
+                                    </div>
+                                </div>
 
-        						<div class="single__address">
-        							<i class="icon-phone icons"></i>
-        							<div class="content">
-        								<span> ফোন নাম্বার:</span>
-        								<p>(+88) 01521-405012</p>
-        							</div>
-        						</div>
+                                <div class="single__address">
+                                    <i class="icon-phone icons"></i>
+                                    <div class="content">
+                                        <span> ফোন নাম্বার:</span>
+                                        <p>(+88) 01521-405012</p>
+                                    </div>
+                                </div>
 
-        						<div class="single__address">
-        							<i class="icon-envelope icons"></i>
-        							<div class="content">
-        								<span> ইমেইল এড্রেস:</span>
-        								<p>nasimuzzaman15-1127@gmail.com</p>
-        							</div>
-        						</div>
+                                <div class="single__address">
+                                    <i class="icon-envelope icons"></i>
+                                    <div class="content">
+                                        <span> ইমেইল এড্রেস:</span>
+                                        <p>nasimuzzaman15-1127@gmail.com</p>
+                                    </div>
+                                </div>
 
-        						<div class="single__address">
-        							<i class="icon-globe icons"></i>
-        							<div class="content">
-        								<span>ওয়েবসাইট এড্রেস:</span>
-        								<p>www.nasimuzzaman.me</p>
-        							</div>
-        						</div>
+                                <div class="single__address">
+                                    <i class="icon-globe icons"></i>
+                                    <div class="content">
+                                        <span>ওয়েবসাইট এড্রেস:</span>
+                                        <p>www.nasimuzzaman.me</p>
+                                    </div>
+                                </div>
 
-        					</div>
-        				</div>
-        			</div>
-        		</div>
-        	</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <!-- End Contact Area -->
-		<!-- Footer Area -->
-		{% include 'footer.html' %}
-		<!-- //Footer Area -->
+        <!-- Footer Area -->
+        {% include 'footer.html' %}
+        <!-- //Footer Area -->
 
-	</div>
-	<!-- //Main wrapper -->
+    </div>
+    <!-- //Main wrapper -->
 
 {% endblock %}
