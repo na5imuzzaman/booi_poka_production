@@ -18,8 +18,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url
 from django.urls import path, include
+from .views import PasswordResetFromKeyView
 
 urlpatterns = [
+    url(r"^password/reset/key/(?P<uidb36>[0-9A-Za-z]+)-(?P<key>.+)/$", PasswordResetFromKeyView.as_view(),
+        name="account_reset_password_from_key"),
     path('admin/', admin.site.urls),
     path("accounts/", include("allauth.urls")),
     path("profile/", include("local_users.urls")),
