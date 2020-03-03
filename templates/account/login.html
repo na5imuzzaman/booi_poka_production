@@ -20,36 +20,17 @@
                 <h1 class="text-center">{% trans "Sign In" %}</h1>
 
                 {% get_providers as socialaccount_providers %}
-
-                {#                {% if socialaccount_providers %}#}
-                {##}
-                {#                    <div class="socialaccount_ballot">#}
-                {##}
-                {#                        <ul class="socialaccount_providers">#}
-                {#                            {% include "socialaccount/snippets/provider_list.html" with process="login" %}#}
-                {#                        </ul>#}
-                {##}
-                {#                        <div class="login-or">{% trans 'or' %}</div>#}
-                {##}
-                {#                    </div>#}
-                {#                    {% include "socialaccount/snippets/login_extra.html" %}#}
-                {##}
-                {#                {% endif %}#}
-
-
                 <form class="login mt-4" method="POST" action="{% url 'account_login' %}">
                     {% csrf_token %}
                     {{ form|crispy }}
                     {% if redirect_field_value %}
                         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-
                     {% endif %}
                     <button class="primaryAction btn btn-outline-danger mb-2" type="submit">{% trans "Sign In" %}</button>
                     <div>
                         <a style="color: white" class=" secondaryAction"
                            href="{% url 'account_reset_password' %}">Forgot Password?</a>
                     </div>
-
                 </form>
                 <div class="login-or text-center ">{% trans 'or' %}</div>
                 {% include "socialaccount/snippets/provider_list.html" with process="login" %}
