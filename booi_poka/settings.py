@@ -111,8 +111,8 @@ else:
             'NAME': 'booipoka_db',
             'USER': 'dbadmin',
             'PASSWORD': 'dbadmin@#$nasim',
-            'HOST': 'localhost',
-            'PORT': '',
+            'HOST': 'kakatua.tech',
+            'PORT': '5432',
         }
     }
 
